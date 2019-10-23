@@ -1,0 +1,14 @@
+//
+// Created by karla on 18. 10. 2019..
+//
+
+#ifndef STEEPEST_DESCENT_NUMERIC_OPTIMIZATION_H
+#define STEEPEST_DESCENT_NUMERIC_OPTIMIZATION_H
+
+
+class numeric_optimization {
+
+};
+
+
+#endif //STEEPEST_DESCENT_NUMERIC_OPTIMIZATION_H
