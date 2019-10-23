@@ -12,4 +12,4 @@ add_executable(steepest_descent
         main.cpp
         main.h
         quadratic_function.cpp
-        quadratic_function.h)
+        quadratic_function.h numeric_optimization.cpp numeric_optimization.h optimization_function.cpp optimization_function.h)
