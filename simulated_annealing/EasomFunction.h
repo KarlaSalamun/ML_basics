@@ -1,15 +1,13 @@
 //
-// Created by karla on 23. 10. 2019..
+// Created by karla on 24. 10. 2019..
 //
 
-#ifndef SIMULATED_ANNEALING_HIMMELBLAUFUNCTION_H
-#define SIMULATED_ANNEALING_HIMMELBLAUFUNCTION_H
+#ifndef SIMULATED_ANNEALING_EASOMFUNCTION_H
+#define SIMULATED_ANNEALING_EASOMFUNCTION_H
 
-
-#include <vector>
 #include "function.h"
 
-class HimmelblauFunction : public Function {
+class EasomFunction : public Function {
     public:
         double get_value( std::vector<double> args );
         std::vector<double> get_gradient( std::vector<double> args ) {
@@ -19,4 +17,4 @@ class HimmelblauFunction : public Function {
 };
 
 
-#endif //SIMULATED_ANNEALING_HIMMELBLAUFUNCTION_H
+#endif //SIMULATED_ANNEALING_EASOMFUNCTION_H

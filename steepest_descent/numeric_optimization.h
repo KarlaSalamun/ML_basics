@@ -6,8 +6,8 @@
 #define STEEPEST_DESCENT_NUMERIC_OPTIMIZATION_H
 
 #include <vector>
-#include "optimization_function.h"
-#include "function.h"
+#include "../optimization_function.h"
+#include "../function.h"
 #include "quadratic_function.h"
 
 class NumericOptimization : public OptimizationFcn {

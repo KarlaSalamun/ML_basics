@@ -5,7 +5,7 @@
 #ifndef PROJEKT_QUADRATIC_FUNCTION_H
 #define PROJEKT_QUADRATIC_FUNCTION_H
 
-#include "function.h"
+#include "../function.h"
 
 class QuadraticFunction : public Function {
     public:

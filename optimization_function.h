@@ -6,7 +6,6 @@
 #define STEEPEST_DESCENT_OPTIMIZATION_FUNCTION_H
 #include <vector>
 #include "function.h"
-#include "quadratic_function.h"
 
 class OptimizationFcn {
 public:

@@ -5,7 +5,6 @@
 #ifndef PROJEKT_FUNCTION_H
 #define PROJEKT_FUNCTION_H
 
-#include "main.h"
 #include <vector>
 
 class Function {
