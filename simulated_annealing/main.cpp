@@ -1,9 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
-#include <random>
-#include <cstdlib>
-#include <ctime>
 #include "RastriginFunction.h"
 #include "HimmelblauFunction.h"
 #include "EasomFunction.h"
@@ -11,7 +7,8 @@
 #include "EggholderFunction.h"
 #include "RosenbrockFunction.h"
 #include "SimulatedAnnealing.h"
-
+#include "GeometricScheme.h"
+#include "LinearScheme.h"
 
 int main()
 {
@@ -27,19 +24,13 @@ int main()
     //EggholderFunction *test_function = new EggholderFunction();
     //RosenbrockFunction *test_function = new RosenbrockFunction();
 
-    SimulatedAnnealing opt_function = SimulatedAnnealing();
+    SimulatedAnnealing opt_function = SimulatedAnnealing( new LinearScheme() );
 
     solution = opt_function.get_solution( w, test_function );
 
     for( auto i=0; i<w.size(); i++ ) {
-        std::cout << solution[i];
-        std::cout << "\n";
+        std::cout << "solution [" << i << "]: " << solution[i] << "\n";
     }
-    /*
-    std::cout << k;
-    std::cout << "\n";
-    std::cout << total_accepted;
-    */
-    printf("%f\n", sqrt( pow( solution[0], 2 ) + pow( solution[1], 2 ) ));
 
+   // printf("%f\n", sqrt( pow( solution[0], 2 ) + pow( solution[1], 2 ) ));
 }

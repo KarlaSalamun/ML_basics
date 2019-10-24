@@ -2,12 +2,14 @@
 // Created by karla on 24. 10. 2019..
 //
 
-#include "SimulatedAnnealing.h"
 #include <cmath>
+#include "SimulatedAnnealing.h"
+#include "CoolingScheme.h"
+#include "GeometricScheme.h"
 
-void SimulatedAnnealing::temp_schedule( int cnt, double &temp )
+SimulatedAnnealing::SimulatedAnnealing(CoolingScheme *scheme)
 {
-    temp = pow( TEMP_COEFF, cnt ) * INIT_TEMP;
+    this->scheme = scheme;
 }
 
 double SimulatedAnnealing::compute_probability( int step )
@@ -25,7 +27,7 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
     int m = 0;
     int success = 0;
     int acc_sol = 0;
-    double temp = INIT_TEMP;
+    double temp = scheme->INIT_TEMP;
     double init_prob = 0.2;
     double init_prob_decrease = 0.2;
     int total_accepted = 0;
@@ -33,7 +35,6 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
     //srand (static_cast<double> (time(NULL)));
     srand(0);
     while ( temp > 1e-5 ) {
-
         for ( m=0; m<1000; m++ ) {
             for ( auto i=0; i<solution.size(); i++) {
                 double random_coeff = 4 * (static_cast <double> (rand()) / ( static_cast <double> (RAND_MAX)));
@@ -56,12 +57,11 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
             if (success == 100) {
                 break;
             }
-
         }
         //printf("success: %d ", success);
         //printf("accepted solutions: %d\n", acc_sol);
         acc_sol = 0;
-        temp_schedule( k, temp );
+        scheme->update_temperature( k, temp );
         //printf("new temperature: %f\n", temp);
         k++;
         success=0;
