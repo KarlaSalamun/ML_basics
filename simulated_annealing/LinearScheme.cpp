@@ -4,7 +4,7 @@
 
 #include "LinearScheme.h"
 
-void LinearScheme::update_temperature(int step, double &temp)
+double LinearScheme::get_new_temperature(int step)
 {
-    temp = INIT_TEMP - step * TEMP_COEFF;
+    return init_temp - step * temp_coeff;
 }

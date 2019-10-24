@@ -7,9 +7,10 @@
 
 class CoolingScheme {
     public:
-        const double TEMP_COEFF = 100;
-        const double INIT_TEMP = 10e5;
-        virtual void update_temperature( int step, double &temp ) = 0;
+        CoolingScheme (double coeff, double init):temp_coeff(coeff), init_temp(init) {}
+        double temp_coeff;
+        double init_temp;
+        virtual double get_new_temperature( int step ) = 0;
 };
 
 #endif //SIMULATED_ANNEALING_COOLINGSCHEME_H

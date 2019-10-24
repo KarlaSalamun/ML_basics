@@ -4,7 +4,7 @@
 #include <cmath>
 #include "GeometricScheme.h"
 
-void GeometricScheme::update_temperature( int step, double &temp )
+double GeometricScheme::get_new_temperature( int step )
 {
-    temp = pow( TEMP_COEFF, step ) * INIT_TEMP;
+    return pow( temp_coeff, step ) * init_temp;
 }

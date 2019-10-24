@@ -7,14 +7,14 @@
 #include "CoolingScheme.h"
 #include "GeometricScheme.h"
 
-SimulatedAnnealing::SimulatedAnnealing(CoolingScheme *scheme)
+SimulatedAnnealing::~SimulatedAnnealing()
 {
-    this->scheme = scheme;
+    delete scheme;
 }
 
 double SimulatedAnnealing::compute_probability( int step )
 {
-    return INIT_PROB * pow( PROB_DECREASE, step-1 );
+    return init_prob * pow( prob_decrease, step-1 );
 }
 
 std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> solution, Function *test_function )
@@ -27,7 +27,7 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
     int m = 0;
     int success = 0;
     int acc_sol = 0;
-    double temp = scheme->INIT_TEMP;
+    double temp = scheme->init_temp;
     double init_prob = 0.2;
     double init_prob_decrease = 0.2;
     int total_accepted = 0;
@@ -61,7 +61,7 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
         //printf("success: %d ", success);
         //printf("accepted solutions: %d\n", acc_sol);
         acc_sol = 0;
-        scheme->update_temperature( k, temp );
+        temp = scheme->get_new_temperature( k );
         //printf("new temperature: %f\n", temp);
         k++;
         success=0;

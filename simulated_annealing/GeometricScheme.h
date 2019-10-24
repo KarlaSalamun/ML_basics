@@ -9,7 +9,8 @@
 
 class GeometricScheme : public CoolingScheme {
     public:
-        void update_temperature( int step, double &temp );
+        GeometricScheme(double coeff, double init) : CoolingScheme(coeff, init) {}
+        double get_new_temperature( int step );
 };
 
 #endif //SIMULATED_ANNEALING_GEOMETRICSCHEME_H

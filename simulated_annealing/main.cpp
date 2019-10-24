@@ -24,7 +24,7 @@ int main()
     //EggholderFunction *test_function = new EggholderFunction();
     //RosenbrockFunction *test_function = new RosenbrockFunction();
 
-    SimulatedAnnealing opt_function = SimulatedAnnealing( new LinearScheme() );
+    SimulatedAnnealing opt_function = SimulatedAnnealing(new LinearScheme(100, 10e5));
 
     solution = opt_function.get_solution( w, test_function );
 
@@ -32,5 +32,7 @@ int main()
         std::cout << "solution [" << i << "]: " << solution[i] << "\n";
     }
 
+    delete test_function;
    // printf("%f\n", sqrt( pow( solution[0], 2 ) + pow( solution[1], 2 ) ));
+   return 0;
 }
