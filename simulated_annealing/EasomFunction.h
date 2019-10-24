@@ -5,7 +5,7 @@
 #ifndef SIMULATED_ANNEALING_EASOMFUNCTION_H
 #define SIMULATED_ANNEALING_EASOMFUNCTION_H
 
-#include "function.h"
+#include "../function.h"
 
 class EasomFunction : public Function {
     public:

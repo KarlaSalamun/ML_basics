@@ -6,7 +6,7 @@
 #define SIMULATED_ANNEALING_RASTRIGINFUNCTION_H
 
 #include <vector>
-#include "function.h"
+#include "../function.h"
 
 class RastriginFunction : public Function {
     public:

@@ -3,7 +3,7 @@
 #include "RastriginFunction.h"
 #include "HimmelblauFunction.h"
 #include "EasomFunction.h"
-#include "function.h"
+#include "../function.h"
 #include "EggholderFunction.h"
 #include "RosenbrockFunction.h"
 #include "SimulatedAnnealing.h"

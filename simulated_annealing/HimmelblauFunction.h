@@ -6,7 +6,7 @@
 #define SIMULATED_ANNEALING_HIMMELBLAUFUNCTION_H
 
 #include <vector>
-#include "function.h"
+#include "../function.h"
 
 class HimmelblauFunction : public Function {
     public:

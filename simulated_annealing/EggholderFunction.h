@@ -6,7 +6,7 @@
 #define SIMULATED_ANNEALING_EGGHOLDERFUNCTION_H
 
 #include <vector>
-#include "function.h"
+#include "../function.h"
 
 class EggholderFunction : public Function {
 public:

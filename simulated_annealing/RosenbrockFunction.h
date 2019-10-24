@@ -6,7 +6,7 @@
 #define SIMULATED_ANNEALING_ROSENBROCKFUNCTION_H
 
 #include <vector>
-#include "function.h"
+#include "../function.h"
 
 class RosenbrockFunction : public Function {
 public:
