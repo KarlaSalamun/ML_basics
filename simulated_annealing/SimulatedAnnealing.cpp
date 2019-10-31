@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <iostream>
 #include "SimulatedAnnealing.h"
 #include "CoolingScheme.h"
 #include "GeometricScheme.h"
@@ -21,7 +22,7 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
 {
 
     std::vector<double> solution_new;
-    solution_new.assign( 2, 0 );
+    solution_new.assign( solution.size(), 0 );
 
     int k = 1;
     int m = 0;
@@ -32,8 +33,8 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
     double init_prob_decrease = 0.2;
     int total_accepted = 0;
 
-    //srand (static_cast<double> (time(NULL)));
-    srand(0);
+    srand (static_cast<double> (time(NULL)));
+    //srand(0);
     while ( temp > 1e-5 ) {
         for ( m=0; m<1000; m++ ) {
             for ( auto i=0; i<solution.size(); i++) {
@@ -59,10 +60,17 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
             }
         }
         //printf("success: %d ", success);
-        //printf("accepted solutions: %d\n", acc_sol);
+        //printf("accepted solutio1000ns: %d\n", acc_sol);
         acc_sol = 0;
         temp = scheme->get_new_temperature( k );
         //printf("new temperature: %f\n", temp);
+        /*
+        printf("current solution:\n");
+        for(auto i=0; i<solution.size(); i++) {
+            printf("%f ", solution[i]);
+        }
+        std::cout << "\n";
+         */
         k++;
         success=0;
     }
