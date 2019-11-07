@@ -1,0 +1,49 @@
+testing results: 
+population size: 	5
+==================================================
+crossover method: 	BLX alpha
+mutation method: 	Uniform mutation	[-5.000000, 5.000000]
+------------------------------
+alpha :	0.00	solution found in 1 generations
+alpha :	0.10	solution found in 1 generations
+alpha :	0.20	solution found in 1 generations
+alpha :	0.30	solution found in 1 generations
+alpha :	0.40	solution found in 1 generations
+alpha :	0.50	solution found in 1 generations
+alpha :	0.60	solution found in 1 generations
+alpha :	0.70	solution found in 1 generations
+alpha :	0.80	solution found in 1 generations
+alpha :	0.90	solution found in 1 generations
+alpha :	1.00	solution found in 1 generations
+==================================================
+crossover method: 	BLX alpha
+mutation method: 	Normal mutation	[dev = 0.5]
+------------------------------
+alpha :	0.00	solution found in 1 generations
+alpha :	0.10	solution found in 1 generations
+alpha :	0.20	solution found in 1 generations
+alpha :	0.30	solution found in 1 generations
+alpha :	0.40	solution found in 1 generations
+alpha :	0.50	solution found in 1 generations
+alpha :	0.60	solution found in 1 generations
+alpha :	0.70	solution found in 1 generations
+alpha :	0.80	solution found in 1 generations
+alpha :	0.90	solution found in 1 generations
+alpha :	1.00	solution found in 1 generations
+==================================================
+crossover method: 	Arithmetic Crossover
+------------------------------
+lambda :	0.10	solution found in 1 generations
+lambda :	0.20	solution found in 1 generations
+lambda :	0.30	solution found in 1 generations
+lambda :	0.40	solution found in 1 generations
+lambda :	0.50	solution found in 1 generations
+lambda :	0.60	solution found in 1 generations
+lambda :	0.70	solution found in 1 generations
+lambda :	0.80	solution found in 1 generations
+lambda :	0.90	solution found in 1 generations
+lambda :	1.00	solution found in 1 generations
+==================================================
+crossover method: 	Simple Crossover
+------------------------------
+solution found in 1 generations
