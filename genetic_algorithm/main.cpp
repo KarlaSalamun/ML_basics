@@ -9,6 +9,8 @@
 #include "SimpleCrossover.h"
 #include "NormalMutation.h"
 #include "../simulated_annealing/TF_optimization.h"
+#include "../Solution.h"
+#include "TournamentSelection.h"
 
 #define TESTING 0
 
@@ -18,24 +20,21 @@ int main()
 {
 //    srand(static_cast<double> (time(NULL)));
     srand(static_cast<double> (0));
-    std::vector<double> solution(6, 0);
+    Solution sol(6);
 
     double limit_d = -2;
     double  limit_u = 2;
 
-    int generation_number = 5000;
-    int population_size = 500;
+    int generation_number = 100;
+    int population_size = 1000;
 
-    double alpha = 0.9;
+    double alpha = 0.4;
 
     // TODO: staviti kao smart pointer
-    CrossoverOperator *crossover = new BLX_alpha(alpha);
+    CrossoverOperator *crossover = new ArithmeticCrossover(alpha);
     MutationOperator *mutation = new UniformMutation(limit_d, limit_u);
+    SelectionOperator *selection = new TournamentSelection( 100 );
 
-    GeneticAlgorithm algorithm = GeneticAlgorithm( crossover,
-            mutation, generation_number, population_size, 6 );
-
-    // CLI argument za mijenjanje zadatka programa - OPCIONALNO
 
     std::vector<std::vector<double>> x( 20, std::vector<double>(5, 0));
     std::vector<double> y(20, 0);
@@ -49,14 +48,13 @@ int main()
         }
     }
 
+    RastriginFunction *test_function = new RastriginFunction();
     TFOptimization *tf = new TFOptimization( x, y );
-    solution = algorithm.get_solution( solution, tf );
+    GeneticAlgorithm algorithm = GeneticAlgorithm( crossover,
+                                                   mutation, selection, tf, generation_number, population_size, 6 );
 
-    for( auto i=0; i<solution.size(); i++ ) {
-        printf("solution [%d] : %f\n", i, solution[i]);
-    }
-
-    printf("residual: %lf\n", tf->get_value(solution));
+    sol = algorithm.get_solution();
+    sol.print_value();
 /*
 #ifdef TESTING
 

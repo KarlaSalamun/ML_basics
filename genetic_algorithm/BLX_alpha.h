@@ -11,8 +11,8 @@
 class BLX_alpha : public CrossoverOperator {
     public:
         BLX_alpha(double alpha) : alpha(alpha) {}
-        std::vector<std::vector<double>> get_children ( std::vector<std::vector<double>> parents );
-    private:
+        std::vector<Solution> get_children(std::vector<Solution> parents );
+private:
         double alpha;
 };
 

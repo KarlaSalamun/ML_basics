@@ -9,7 +9,8 @@
 #include "CrossoverOperator.h"
 
 class SimpleCrossover : public CrossoverOperator {
-    std::vector<std::vector<double>> get_children ( std::vector<std::vector<double>> parents );
+    public:
+        std::vector<Solution> get_children(std::vector<Solution> parents );
 };
 
 

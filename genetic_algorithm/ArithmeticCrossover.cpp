@@ -3,13 +3,13 @@
 //
 #include "ArithmeticCrossover.h"
 
-std::vector<std::vector<double>> ArithmeticCrossover::get_children(std::vector<std::vector<double>> parents)
+std::vector<Solution> ArithmeticCrossover::get_children(std::vector<Solution> parents )
 {
-    std::vector<std::vector<double>> children(2, std::vector<double>(parents[0].size(), 0));
+    std::vector<Solution> children(2, Solution(parents[0].vector.size()));
 
-    for(int i=0; i<parents[0].size(); i++) {
-        children[0][i] = lambda * parents[0][i] + (1 - lambda) * parents[1][i];
-        children[1][i] = lambda * parents[1][i] + (1 - lambda) * parents[0][i];
+    for(int i=0; i<parents[0].vector.size(); i++) {
+        children[0].vector[i] = lambda * parents[0].vector[i] + (1 - lambda) * parents[1].vector[i];
+        children[1].vector[i] = lambda * parents[1].vector[i] + (1 - lambda) * parents[0].vector[i];
     }
     return children;
 }

@@ -5,19 +5,20 @@
 #include <ctime>
 #include "SimpleCrossover.h"
 
-std::vector<std::vector<double>> SimpleCrossover::get_children(std::vector<std::vector<double>> parents){
+std::vector<Solution> SimpleCrossover::get_children(std::vector<Solution> parents )
+{
 
     srand (static_cast<double> (time(NULL)));
-    std::vector<std::vector<double>> children(2, std::vector<double>(parents[0].size(), 0));
-    int breakpoint = rand() % parents[0].size();
+    std::vector<Solution> children(2, Solution(parents[0].vector.size()));
+    int breakpoint = rand() % parents[0].vector.size();
 
     for(int i=0; i<breakpoint; i++) {
-        children[0][i] = parents[0][i];
-        children[1][i] = parents[1][i];
+        children[0].vector[i] = parents[0].vector[i];
+        children[1].vector[i] = parents[1].vector[i];
     }
-    for(int i=breakpoint; i<parents[0].size(); i++) {
-        children[0][i] = parents[1][i];
-        children[1][i] = parents[0][i];
+    for(int i=breakpoint; i<parents[0].vector.size(); i++) {
+        children[0].vector[i] = parents[1].vector[i];
+        children[1].vector[i] = parents[0].vector[i];
     }
     return children;
 }

@@ -11,7 +11,7 @@
 class ArithmeticCrossover : public CrossoverOperator {
     public:
         ArithmeticCrossover(double lambda) : lambda(lambda) {}
-        std::vector<std::vector<double>> get_children ( std::vector<std::vector<double>> parents );
+        std::vector<Solution> get_children(std::vector<Solution> parents );
     private:
         double lambda;
 };
