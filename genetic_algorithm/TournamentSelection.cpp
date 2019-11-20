@@ -12,8 +12,9 @@ std::vector<Solution> TournamentSelection::get_members(std::vector<Solution> pop
     std::vector<Solution> selected_members;
     std::vector<Solution> rand_members;
 
-    std::shuffle(population.begin(), population.end(), std::mt19937{std::random_device{}()});
+//    std::shuffle(population.begin(), population.end(), std::mt19937{std::random_device{}()});
 
+    std::shuffle(population.begin(), population.end(), std::default_random_engine());
     rand_members.assign(population.begin(), population.begin() + sample_size );
 
     std::sort(rand_members.begin(), rand_members.end(),

@@ -115,6 +115,10 @@ Solution GeneticAlgorithm::get_best_result( std::vector<Solution> population )
 Solution GeneticAlgorithm::get_solution()
 {
     std::vector<Solution> population = create_population();
+    evaluate_population(population);
+    Solution best_solution = population[0];
+
+    std::vector<Solution> best_population = create_population();
     std::vector<Solution> parents(2, Solution(dim_size));
     std::vector<Solution> children(2, Solution(dim_size));
     extern int generations;
@@ -122,17 +126,21 @@ Solution GeneticAlgorithm::get_solution()
     for ( int i=0; i<generation_number; i++ ) {
         evaluate_population(population);
         std::vector<Solution> best_members = get_best_members(population, test_function);
-        best_members[0].print_value();
-        best_members[1].print_value();
+        //best_members[0].print_value();
+        //best_members[1].print_value();
+        if(best_members[0].fitness < best_solution.fitness) {
+            best_solution = best_members[0];
+        }
+        best_solution.print_value();
         std::vector<Solution> new_population;
         add_members( new_population, best_members );
-
+        add_members( best_population, best_members );
         // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
         while( new_population.size() < population_size ) {
             parents = selection->get_members( population );
             children = crossover->get_children( parents );
-           // mutation->mutate_solution(children[0].vector );
-           // mutation->mutate_solution(children[1].vector );
+            mutation->mutate_solution(children[0].vector );
+            mutation->mutate_solution(children[1].vector );
             evaluate_population(children);
             /*
             if(children[0].fitness == children[1].fitness) {
@@ -142,7 +150,7 @@ Solution GeneticAlgorithm::get_solution()
             add_members(new_population, children );
 
         }
-        //printf("Generation: %d/1000\n", i+1);
+        printf("Generation: %d/%d\n", i+1, generation_number);
         population = new_population;
 /*
         if( test_function->get_value( evaluate_population( population, test_function ) ) == static_cast<double> (0) ) {

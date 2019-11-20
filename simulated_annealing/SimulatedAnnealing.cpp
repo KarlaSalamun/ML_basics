@@ -38,7 +38,7 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
     while ( temp > 1e-5 ) {
         for ( m=0; m<1000; m++ ) {
             for ( auto i=0; i<solution.size(); i++) {
-                double random_coeff = 4 * (static_cast <double> (rand()) / ( static_cast <double> (RAND_MAX)));
+                double random_coeff = 8.6 * (static_cast <double> (rand()) / ( static_cast <double> (RAND_MAX)));
                 double random = -0.5 + static_cast <double> (rand()) / ( static_cast <double> (RAND_MAX));
                 solution_new[i] = solution[i] + random*random_coeff;
             }
@@ -73,6 +73,8 @@ std::vector<double> SimulatedAnnealing::get_solution( std::vector<double> soluti
          */
         k++;
         success=0;
+        double residual = test_function->get_value(solution);
+        printf("Current residual: %lf\n", residual);
     }
     return solution;
 }

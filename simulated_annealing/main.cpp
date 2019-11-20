@@ -20,9 +20,8 @@ using namespace std;
 
 int main()
 {
-    std::vector<double> w(6, 0);
-    std::vector<double> solution(6, 0);
-    std::vector<double> prev_solution(6, 0);
+    std::vector<double> w(2, 0);
+    std::vector<double> solution(2, 0);
 
     FILE *fp = fopen("/home/karla/faks/9. semestar/projekt/simulated_annealing/tf_file.txt", "r");
     if ( fp == NULL ) {
@@ -35,8 +34,8 @@ int main()
 
     SimulatedAnnealing opt_function = SimulatedAnnealing(new LinearScheme(100, 10e5));
 
-    w.assign( 6, 1 );
-    solution.assign(6, 0);
+    w.assign( 2, 1 );
+    solution.assign(2, 0);
 
 
     for(int i=0; ; i++) {
@@ -46,7 +45,8 @@ int main()
         }
     }
 
-    TFOptimization *test_function = new TFOptimization( x, y );
+//    TFOptimization *test_function = new TFOptimization( x, y );
+    RastriginFunction *test_function = new RastriginFunction;
 
     printf("residual: %lf\n", test_function->get_value(solution));
     solution = opt_function.get_solution( w, test_function );

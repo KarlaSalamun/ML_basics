@@ -1,49 +1,49 @@
 testing results: 
-population size: 	5
+population size: 	1000
 ==================================================
 crossover method: 	BLX alpha
-mutation method: 	Uniform mutation	[-5.000000, 5.000000]
+mutation method: 	Uniform mutation	[-2.000000, 2.000000]
 ------------------------------
-alpha :	0.00	solution found in 1 generations
-alpha :	0.10	solution found in 1 generations
-alpha :	0.20	solution found in 1 generations
-alpha :	0.30	solution found in 1 generations
-alpha :	0.40	solution found in 1 generations
-alpha :	0.50	solution found in 1 generations
-alpha :	0.60	solution found in 1 generations
-alpha :	0.70	solution found in 1 generations
-alpha :	0.80	solution found in 1 generations
-alpha :	0.90	solution found in 1 generations
-alpha :	1.00	solution found in 1 generations
+alpha :	0.00	residual :	134.05
+alpha :	0.10	residual :	122.50
+alpha :	0.20	residual :	118.38
+alpha :	0.30	residual :	152.27
+alpha :	0.40	residual :	124.80
+alpha :	0.50	residual :	127.10
+alpha :	0.60	residual :	148.86
+alpha :	0.70	residual :	140.60
+alpha :	0.80	residual :	142.34
+alpha :	0.90	residual :	140.02
+alpha :	1.00	residual :	152.35
 ==================================================
 crossover method: 	BLX alpha
 mutation method: 	Normal mutation	[dev = 0.5]
 ------------------------------
-alpha :	0.00	solution found in 1 generations
-alpha :	0.10	solution found in 1 generations
-alpha :	0.20	solution found in 1 generations
-alpha :	0.30	solution found in 1 generations
-alpha :	0.40	solution found in 1 generations
-alpha :	0.50	solution found in 1 generations
-alpha :	0.60	solution found in 1 generations
-alpha :	0.70	solution found in 1 generations
-alpha :	0.80	solution found in 1 generations
-alpha :	0.90	solution found in 1 generations
-alpha :	1.00	solution found in 1 generations
+alpha :	0.00	residual :	106.65
+alpha :	0.10	residual :	188.53
+alpha :	0.20	residual :	149.28
+alpha :	0.30	residual :	229.74
+alpha :	0.40	residual :	207.22
+alpha :	0.50	residual :	269.27
+alpha :	0.60	residual :	144.80
+alpha :	0.70	residual :	135.76
+alpha :	0.80	residual :	158.21
+alpha :	0.90	residual :	174.17
+alpha :	1.00	residual :	208.33
 ==================================================
 crossover method: 	Arithmetic Crossover
 ------------------------------
-lambda :	0.10	solution found in 1 generations
-lambda :	0.20	solution found in 1 generations
-lambda :	0.30	solution found in 1 generations
-lambda :	0.40	solution found in 1 generations
-lambda :	0.50	solution found in 1 generations
-lambda :	0.60	solution found in 1 generations
-lambda :	0.70	solution found in 1 generations
-lambda :	0.80	solution found in 1 generations
-lambda :	0.90	solution found in 1 generations
-lambda :	1.00	solution found in 1 generations
+lambda :	0.10	residual :	127.86
+lambda :	0.20	residual :	148.80
+lambda :	0.30	residual :	199.91
+lambda :	0.40	residual :	171.20
+lambda :	0.50	residual :	237.20
+lambda :	0.60	residual :	208.37
+lambda :	0.70	residual :	141.19
+lambda :	0.80	residual :	204.16
+lambda :	0.90	residual :	162.14
+lambda :	1.00	residual :	146.26
 ==================================================
 crossover method: 	Simple Crossover
 ------------------------------
-solution found in 1 generations
+residual :	212.81

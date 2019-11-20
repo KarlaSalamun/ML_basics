@@ -10,6 +10,6 @@ void NormalMutation::mutate_solution(std::vector<double> &solution)
     std::normal_distribution<double> distribution(0, deviation);
 
     for(int i=0; i<solution.size(); i++) {
-        solution[i] = distribution(generator);
+        solution[i] += distribution(generator) * deviation;
     }
 }
