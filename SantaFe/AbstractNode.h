@@ -8,11 +8,18 @@
 #include <vector>
 #include "Ant.h"
 
+#define TERM_NDOES 3
+#define FUNC_NODES 3
+
 class AbstractNode {
     public:
         std::vector<AbstractNode *> children;
         int depth;
         int subtree_num;
+        int children_number;
+        int id;
+        bool is_terminal;
+        const char *name;
 
         AbstractNode( std::vector<AbstractNode *> children, int depth, int subtree_num );
         AbstractNode();

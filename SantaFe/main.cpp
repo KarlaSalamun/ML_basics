@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Ant.h"
+#include "TreeConstructor.h"
 
 int main()
 {
@@ -40,4 +41,10 @@ int main()
     }
 
     printf("%d %d %d\n", ant->ant_position.x, ant->ant_position.y, ant->food_cnt);
+
+    TreeConstructor *tc = new TreeConstructor();
+    AbstractNode *root = tc->construct_tree_grow( 5 );
+    tc->draw_tree( root );
+//    root->action(reinterpret_cast<Ant &>(ant) );
+
 }

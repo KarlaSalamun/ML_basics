@@ -10,11 +10,15 @@
 
 class TurnRightNode : public AbstractNode {
     public:
+        TurnRightNode()
+        {
+            children_number = 0;
+            is_terminal = true;
+            name = "TurnRight";
+        }
         AbstractNode * copy() override;
 
         int action( Ant &ant ) override;
-
-        int children_num = 0;
 };
 
 

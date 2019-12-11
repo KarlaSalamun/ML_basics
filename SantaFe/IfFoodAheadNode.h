@@ -9,14 +9,18 @@
 
 class IfFoodAheadNode : public AbstractNode {
     public:
-        IfFoodAheadNode() : AbstractNode() {}
+        IfFoodAheadNode() : AbstractNode()
+        {
+            is_terminal = false;
+            children_number = 2;
+            children.assign( children_number, nullptr );
+            name = "IsFoodAhead";
+        }
         IfFoodAheadNode( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
             AbstractNode( children, depth, subtree_num ) {}
 
         AbstractNode * copy() override;
         int action( Ant &ant ) override;
-
-        int children_num = 2;
 };
 
 

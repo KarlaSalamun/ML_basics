@@ -10,11 +10,16 @@
 
 class MoveNode : public AbstractNode {
     public:
+        MoveNode()
+        {
+            is_terminal = true;
+            children_number = 0;
+            name = "Move";
+        }
         AbstractNode * copy() override;
 
         int action( Ant &ant ) override;
 
-        int children_num = 0;
 };
 
 

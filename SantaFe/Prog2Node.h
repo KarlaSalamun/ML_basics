@@ -10,7 +10,13 @@
 
 class Prog2Node : public AbstractNode {
     public:
-        Prog2Node() : AbstractNode() {}
+        Prog2Node() : AbstractNode()
+        {
+            is_terminal = false;
+            children_number = 2;
+            children.assign( children_number, nullptr );
+            name = "Prog2";
+        }
         Prog2Node( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
             AbstractNode( children, depth, subtree_num ) {}
 
@@ -18,7 +24,6 @@ class Prog2Node : public AbstractNode {
 
         int action( Ant &ant ) override;
 
-        int children_number = 2;
 };
 
 
