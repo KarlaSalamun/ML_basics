@@ -152,9 +152,9 @@ AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
     return root;
 }
 
-void TreeConstructor::draw_tree( AbstractNode *&root )
+void TreeConstructor::draw_tree( AbstractNode *&root, const char *filename )
 {
-    FILE *fp = fopen( "../tree.dot",  "w+");
+    FILE *fp = fopen( filename,  "w+");
     fprintf( fp, "digraph D {\n\n" );
 
     std::queue<AbstractNode *> queue;

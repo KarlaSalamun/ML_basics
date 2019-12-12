@@ -5,7 +5,7 @@
 #ifndef GENETIC_ALGORITHM_SELECTIONOPERATOR_H
 #define GENETIC_ALGORITHM_SELECTIONOPERATOR_H
 
-#include "../Solution.h"
+#include "Solution.h"
 
 template <typename T>
 class SelectionOperator {

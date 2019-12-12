@@ -16,7 +16,7 @@ AbstractNode::AbstractNode( std::vector <AbstractNode *> children, int depth, in
 
 AbstractNode *AbstractNode::get_child( int index )
 {
-    if( index >= children.size() ) {
+    if( index >= this->children.size() ) {
         return NULL;
     }
      return this->children[index];
@@ -55,7 +55,8 @@ AbstractNode *AbstractNode::pick_random( AbstractNode *&node, int rand_depth )
 /* TODO napraviti da se mijenja bilo koji cvor iz podstabla, kombinacija sa pick_random?? */
 void AbstractNode::replace_random( AbstractNode &new_node )
 {
-int random_node = rand() % children.size();
+    int random_node = rand() % children.size();
+    AbstractNode *random = pick_random( children[random_node], depth );
     set_child( random_node, new_node );
 }
 

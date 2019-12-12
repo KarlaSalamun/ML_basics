@@ -31,6 +31,7 @@ class Ant {
         bool is_food_ahead();
 
         void set_dimensions( int width, int height );
+        void set_food();
 };
 
 

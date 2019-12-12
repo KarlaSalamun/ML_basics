@@ -1,7 +1,7 @@
 //
 // Created by karla on 20. 11. 2019..
 //
-
+#include <cstdio>
 #include "Ant.h"
 
 Ant::Ant()
@@ -45,6 +45,9 @@ void Ant::move()
         food_cnt++;
         food[ant_position.y*map_width + ant_position.x] = false;
     }
+    printf("moving\t");
+    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
+
 }
 
 void Ant::turn_left()
@@ -64,6 +67,8 @@ void Ant::turn_left()
         default:
             dir = left;
     }
+    printf( "turning left\t" );
+    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
 }
 
 void Ant::turn_right()
@@ -83,6 +88,8 @@ void Ant::turn_right()
         default:
             dir = right;
     }
+    printf( "turning right\t" );
+    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
 }
 
 void Ant::set_dimensions(int width, int height)
@@ -117,3 +124,23 @@ bool Ant::is_food_ahead()
     }
 }
 
+void Ant::set_food()
+{
+    FILE *fp = fopen( "../13-SantaFeAntTrail.txt" , "r" );
+
+    int height, width;
+
+    fscanf( fp, "%d", &height );
+    char ch = fgetc(fp);
+    fscanf( fp, "%d", &width );
+
+    set_dimensions( width, height );
+    food = new bool[map_height * map_width];
+
+    for (int i=0; i<map_width; i++) {
+        ch = fgetc(fp);                                             // skip first character in row
+        for (int j=0; j<map_height; j++) {
+            food[i*map_width + j] = fgetc(fp) == '1';
+        }
+    }
+}
