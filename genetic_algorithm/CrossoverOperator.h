@@ -10,7 +10,7 @@
 template <typename T>
 class CrossoverOperator {
     public:
-        virtual std::vector<Solution<T>> get_children(std::vector<Solution<T>> parents ) = 0;
+        virtual std::vector<T> get_children(std::vector<T> parents ) = 0;
 };
 
 #endif //GENETIC_ALGORITHM_CROSSOVEROPERATOR_H

@@ -8,10 +8,10 @@
 #include "../CrossoverOperator.h"
 #include "AbstractNode.h"
 
-class TreeCrossover : public CrossoverOperator<AbstractNode* > {
+template <typename  T>
+class TreeCrossover : public CrossoverOperator<T> {
     public:
-        std::vector<Solution<AbstractNode *>> get_children(std::vector<Solution<AbstractNode *>> parents );
+        std::vector<T> get_children(std::vector<T> parents );
 };
-
 
 #endif //SANTAFE_TREECROSSOVER_H

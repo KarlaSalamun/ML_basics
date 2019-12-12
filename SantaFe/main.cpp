@@ -86,16 +86,21 @@ int main()
     //TreePopulation *p = new TreePopulation(1, 2);
 
     //std::vector<Solution<AbstractNode *>> population = p->create(1);
-
+/*
     CrossoverOperator<Solution<AbstractNode *>> *crossover = nullptr;
     MutationOperator<Solution<AbstractNode *>> *mutation = nullptr;
     SelectionOperator<Solution<AbstractNode *>> *selection = nullptr;
+*/
+
+    TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
+    TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
+    TreeMutation *mutation = new TreeMutation();
 
     TreeFunction *test_function = new TreeFunction();
 
     int generation_number = 10;
 
-    GeneticAlgorithm<AbstractNode *> *algorithm = new GeneticAlgorithm<AbstractNode *> ( crossover, mutation,
+    GeneticAlgorithm<AbstractNode *> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
 
     result = algorithm->get_solution( population );

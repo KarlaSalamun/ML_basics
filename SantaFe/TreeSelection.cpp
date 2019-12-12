@@ -11,9 +11,11 @@ std::vector<Solution<AbstractNode *>> TreeSelection::get_members(std::vector<Sol
     return result;
 }
 */
-std::vector<Solution<AbstractNode *>> TreeSelection::get_members(std::vector<Solution<AbstractNode *>> population)
+
+template <typename T>
+std::vector<T> TreeSelection<T>::get_members(std::vector<T> population)
 {
-    std::vector<Solution<AbstractNode *>> result;
+    std::vector<T> result;
     result.push_back(population[0]);
     result.push_back(population[1]);
     return result;

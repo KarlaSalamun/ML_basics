@@ -29,6 +29,8 @@ std::vector<Solution<AbstractNode *>> TreeCrossover::get_children(std::vector<So
 }
 */
 
-std::vector<Solution<AbstractNode *>> TreeCrossover::get_children(std::vector<Solution<AbstractNode *>> parents) {
+template <typename T>
+std::vector<T> TreeCrossover<T>::get_children(std::vector<T> parents) {
     return parents;
 }
+

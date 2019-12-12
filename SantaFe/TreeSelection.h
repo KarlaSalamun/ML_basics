@@ -8,9 +8,10 @@
 #include "../SelectionOperator.h"
 #include "AbstractNode.h"
 
-class TreeSelection : public SelectionOperator<AbstractNode *> {
+template <typename  T>
+class TreeSelection : public SelectionOperator<T> {
     public:
-        std::vector<Solution<AbstractNode *>> get_members( std::vector<Solution<AbstractNode *>> population );
+        std::vector<T> get_members( std::vector<T> population );
 };
 
 

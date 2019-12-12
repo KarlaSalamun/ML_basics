@@ -10,7 +10,7 @@
 template <typename T>
 class SelectionOperator {
     public:
-        virtual std::vector<Solution<T>> get_members( std::vector<Solution<T>> population ) = 0;
+        virtual std::vector<T> get_members( std::vector<T> population ) = 0;
 };
 
 
