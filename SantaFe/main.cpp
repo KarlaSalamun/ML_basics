@@ -14,6 +14,9 @@
 #include "TreeSelection.h"
 #include "GeneticAlgorithm.cpp"
 //#include "TreeConstructor.cpp"
+#include "TreeSelection.cpp"
+#include "TreeMutation.cpp"
+#include "TreeCrossover.cpp"
 
 int main()
 {
@@ -61,9 +64,11 @@ int main()
     std::vector<Solution<AbstractNode *>> population;
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
-    int population_size = 10;
+
+    int population_size = 100;
+
     for( int i=0; i<population_size; i++ ) {
-        tmp.data = tc->construct_tree_full( 3 );
+        tmp.data = tc->construct_tree_full( 10 );
         population.push_back( tmp );
     }
 
@@ -81,29 +86,40 @@ int main()
     //root->action( *ant );
     //printf( "food eaten: %d\n", ant->food_cnt );
 
-    tc->draw_tree( parents[0].data, "input.dot" );
-
-    //TreePopulation *p = new TreePopulation(1, 2);
-
-    //std::vector<Solution<AbstractNode *>> population = p->create(1);
-/*
-    CrossoverOperator<Solution<AbstractNode *>> *crossover = nullptr;
-    MutationOperator<Solution<AbstractNode *>> *mutation = nullptr;
-    SelectionOperator<Solution<AbstractNode *>> *selection = nullptr;
-*/
+//    tc->draw_tree( parents[0].data, "input.dot" );
 
     TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
     TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
-    TreeMutation *mutation = new TreeMutation();
+    TreeMutation<Solution<AbstractNode *>> *mutation = new TreeMutation<Solution<AbstractNode *>>();
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 10;
+    int generation_number = 100;
 
-    GeneticAlgorithm<AbstractNode *> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
+    std::vector<Solution<AbstractNode *>> test_parents;
+    AbstractNode *test1 = tc->construct_tree_full(5);
+    tc->draw_tree( test1, "parent1.dot" );
+    AbstractNode *test2 = tc->construct_tree_full(5);
+    tc->draw_tree( test2, "parent2.dot" );
+    Solution<AbstractNode *> test_sol = Solution<AbstractNode *>();
+    test_sol.data = test1;
+    test_parents.push_back(test1);
+    test_parents.push_back(test2);
+    //tc->draw_tree( test_sol.data, "test.dot" );
+
+    //mutation->mutate_solution( test_sol );
+    crossover->get_children( test_parents );
+
+    tc->draw_tree( test_parents[0].data, "parent1_after.dot" );
+    tc->draw_tree( test_parents[1].data, "parent2_after.dot" );
+    //tc->draw_tree( test_sol.data, "test_output.dot" );
+
+        GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
 
     result = algorithm->get_solution( population );
     tc->draw_tree(result.data, "result.dot");
+    //printf("\n\n\n");
+    //result.data->action( *ant );
     printf("final result: %d\n", (int)result.fitness);
 }

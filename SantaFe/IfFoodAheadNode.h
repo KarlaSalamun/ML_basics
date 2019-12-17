@@ -14,7 +14,7 @@ class IfFoodAheadNode : public AbstractNode {
             is_terminal = false;
             children_number = 2;
             children.assign( children_number, nullptr );
-            name = "IsFoodAhead";
+            name = "If";
         }
         IfFoodAheadNode( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
             AbstractNode( children, depth, subtree_num ) {}

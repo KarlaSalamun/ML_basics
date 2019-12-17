@@ -14,40 +14,40 @@
 template <typename T>
 class GeneticAlgorithm  {
     public:
-        GeneticAlgorithm( CrossoverOperator<Solution<T>> *crossover, MutationOperator<Solution<T>> *mutation, SelectionOperator<Solution<T>> *selection, Function<Solution<T>> *test_function, int generation_number, int population_size, int dim_size ) :
+        GeneticAlgorithm( CrossoverOperator<T> *crossover, MutationOperator<T> *mutation, SelectionOperator<T> *selection, Function<T> *test_function, int generation_number, int population_size, int dim_size ) :
             crossover(crossover), mutation(mutation), selection(selection), test_function(test_function), generation_number(generation_number), population_size(population_size), dim_size(dim_size) {}
         ~GeneticAlgorithm()
         {
             delete crossover;
             delete mutation;
         }
-        Solution<T> get_solution ( std::vector<Solution<T>> population );
-        void set_crossover ( CrossoverOperator<Solution<T>> *crossover )
+        T get_solution ( std::vector<T> population );
+        void set_crossover ( CrossoverOperator<T> *crossover )
         {
             delete this->crossover;
             this->crossover = crossover;
         }
-        void set_mutation ( MutationOperator<Solution<T>> *mutation )
+        void set_mutation ( MutationOperator<T> *mutation )
         {
             delete this->mutation;
             this->mutation = mutation;
         }
-        void set_selection ( SelectionOperator<Solution<T>> *selection )
+        void set_selection ( SelectionOperator<T> *selection )
         {
             delete this->selection;
             this->selection = selection;
         }
-        CrossoverOperator<Solution<T>> *crossover;
+        CrossoverOperator<T> *crossover;
 private:
-        std::vector<Solution<T>> get_best_members ( std::vector<Solution<T>> population, Function<Solution<T>> *test_function );
-        void evaluate_population ( std::vector<Solution<T>> &population );
-        void add_members( std::vector<Solution<T>> &population,std::vector<Solution<T>> members );
-        std::vector<Solution<T>> create_population();
-        Solution<T> get_best_result( std::vector<Solution<T>> population );
-        MutationOperator<Solution<T>> *mutation = nullptr;
-        SelectionOperator<Solution<T>> *selection = nullptr;
+        std::vector<T> get_best_members ( std::vector<T> population, Function<T> *test_function );
+        void evaluate_population ( std::vector<T> &population );
+        void add_members( std::vector<T> &population,std::vector<T> members );
+        std::vector<T> create_population();
+        T get_best_result( std::vector<T> population );
+        MutationOperator<T> *mutation = nullptr;
+        SelectionOperator<T> *selection = nullptr;
         int generation_number, population_size, dim_size;
-        Function<Solution<T>> *test_function = nullptr;
+        Function<T> *test_function = nullptr;
 };
 
 

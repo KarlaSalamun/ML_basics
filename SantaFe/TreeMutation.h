@@ -7,10 +7,12 @@
 
 #include "../MutationOperator.h"
 #include "AbstractNode.h"
+#include "../Solution.h"
 
-class TreeMutation : public MutationOperator<AbstractNode *> {
+template <typename T>
+class TreeMutation : public MutationOperator<T> {
 public:
-    void mutate_solution ( std::vector<AbstractNode *> &solution );
+    void mutate_solution ( T &solution );
 };
 
 

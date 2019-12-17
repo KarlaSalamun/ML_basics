@@ -3,6 +3,8 @@
 //
 #include <cstdlib>
 #include <stdio.h>
+#include <cstring>
+#include <string>
 #include <queue>
 #include "TreeConstructor.h"
 #include "MoveNode.h"
@@ -62,8 +64,8 @@ AbstractNode *TreeConstructor::get_random_any()
 AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
 {
     AbstractNode *root = get_random_function_node();
-    //int depth = rand() % max_depth + 1;
-    int depth = 5;
+    int depth = rand() % max_depth + 1;
+    //int depth = 4;
     int identifier = 0;
     root->id = identifier;
     identifier++;
@@ -106,7 +108,7 @@ AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
 AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
 {
 //    int depth = rand() % max_depth + 1;
-    int depth = 5;
+    int depth = 3;
     int identifier = 0;
     AbstractNode *root = get_random_function_node();
     root->id = identifier;
@@ -152,9 +154,37 @@ AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
     return root;
 }
 
-void TreeConstructor::draw_tree( AbstractNode *&root, const char *filename )
+void TreeConstructor::rehash_tree( AbstractNode *&root )
 {
-    FILE *fp = fopen( filename,  "w+");
+    std::queue<AbstractNode *> queue;
+    queue.push( root );
+
+    int identifier = 0;
+    root->id = identifier;
+    identifier++;
+    int ref_depth = 1;
+    while( ref_depth < root->depth ) {
+        int size = queue.size();
+        for( int i=0; i<size; i++ ) {
+            AbstractNode *current = queue.front();
+            queue.pop();
+            for( int j=0; j<current->children_number; j++ ) {
+                current->children[j]->id = identifier;
+                identifier++;
+                queue.push( current->children[j] );
+            }
+        }
+        ref_depth++;
+    }
+}
+
+
+void TreeConstructor::draw_tree( AbstractNode *&root, std::string filename )
+{
+    std::string tmp = "../graphs/";
+
+    //strcat( tmp, filename );
+    FILE *fp = fopen( (tmp+filename).c_str(), "w+");
     fprintf( fp, "digraph D {\n\n" );
 
     std::queue<AbstractNode *> queue;

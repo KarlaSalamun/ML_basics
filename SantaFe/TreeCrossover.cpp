@@ -2,35 +2,33 @@
 // Created by karla on 12. 12. 2019..
 //
 #include <cstdlib>
+#include <algorithm>
 #include "TreeCrossover.h"
 #include "TreePopulation.h"
-/*
-std::vector<Solution<AbstractNode *>> TreeCrossover::get_children(std::vector<Solution<AbstractNode *>> parents){
-
-    AbstractNode *tree1 = parents[0].data;
-    AbstractNode *tree2 = parents[1].data;
-    AbstractNode *random1, *random2;
-    Solution<AbstractNode *> child1;
-    Solution<AbstractNode *> child2;
-    std::vector<Solution<AbstractNode *>> result;
-
-    int rand_depth = rand() % MAX_DEPTH + 1;
-    random1 = tree1->pick_random( tree1, rand_depth );
-    random2 = tree2->pick_random( tree2, rand_depth );
-
-    tree1->replace_random( *random2 );
-    child1.data = tree1;
-    tree2->replace_random( *random1 );
-    child2.data = tree2;
-    result.push_back(child1);
-    result.push_back(child2);
-    return result;
-
-}
-*/
 
 template <typename T>
-std::vector<T> TreeCrossover<T>::get_children(std::vector<T> parents) {
-    return parents;
+std::vector<T> TreeCrossover<T>::get_children(std::vector<T> &parents) {
+
+    TreeConstructor *tc = new TreeConstructor;
+    std::vector<T> result;
+
+    int rand_depth = parents[0].data->depth;
+    AbstractNode *random_tree1 = parents[0].data->pick_random( parents[0].data, 0 );
+
+    rand_depth = parents[1].data->depth;
+    AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, 0 );
+
+    int random_index1 = rand() % random_tree1->children_number;
+    int random_index2 = rand() % random_tree2->children_number;
+    std::swap( random_tree2->children[random_index2], random_tree1->children[random_index1] );
+
+    tc->rehash_tree( parents[0].data );
+    tc->rehash_tree( parents[1].data );
+
+    result.push_back( parents[0] );
+    result.push_back( parents[1] );
+
+    delete tc;
+    return result;
 }
 

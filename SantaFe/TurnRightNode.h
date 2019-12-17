@@ -14,7 +14,7 @@ class TurnRightNode : public AbstractNode {
         {
             children_number = 0;
             is_terminal = true;
-            name = "TurnRight";
+            name = "Right";
         }
         AbstractNode * copy() override;
 

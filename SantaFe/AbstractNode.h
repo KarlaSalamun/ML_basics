@@ -33,9 +33,9 @@ class AbstractNode {
         int calculate_children();
 
         AbstractNode *pick_random( AbstractNode *&node, int rand_depth );
-        void replace_random( AbstractNode &new_node );
+        void replace_random(AbstractNode *&new_node );
 
-        void set_child( int i, AbstractNode &new_node );
+        void set_child( AbstractNode *&child_node, AbstractNode *&new_node );
         std::vector<AbstractNode *> duplicate_children();
 };
 

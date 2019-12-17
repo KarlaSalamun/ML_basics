@@ -14,7 +14,7 @@ class TurnLeftNode : public AbstractNode {
         {
             children_number = 0;
             is_terminal = true;
-            name = "TurnLeft";
+            name = "Left";
         }
 
 

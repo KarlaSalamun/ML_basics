@@ -11,7 +11,7 @@
 template <typename  T>
 class TreeCrossover : public CrossoverOperator<T> {
     public:
-        std::vector<T> get_children(std::vector<T> parents );
+        std::vector<T> get_children(std::vector<T> &parents );
 };
 
 #endif //SANTAFE_TREECROSSOVER_H

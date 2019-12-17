@@ -6,7 +6,7 @@
 
 Ant::Ant()
 {
-    dir = right;
+    dir = up;
     ant_position.x = 0;
     ant_position.y = 0;
     steps_cnt = 0;
@@ -45,8 +45,9 @@ void Ant::move()
         food_cnt++;
         food[ant_position.y*map_width + ant_position.x] = false;
     }
-    printf("moving\t");
-    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
+
+    //printf("moving\t");
+    //printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
 
 }
 
@@ -64,11 +65,14 @@ void Ant::turn_left()
             break;
         case left:
             dir = down;
+            break;
         default:
             dir = left;
     }
-    printf( "turning left\t" );
-    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
+
+    //printf( "turning left\t" );
+    //printf( "coordinates: %d %d\t direction: %d\n", ant_position.x, ant_position.y, dir );
+
 }
 
 void Ant::turn_right()
@@ -88,8 +92,10 @@ void Ant::turn_right()
         default:
             dir = right;
     }
-    printf( "turning right\t" );
-    printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
+
+    //printf( "turning right\t" );
+    //printf( "coordinates: %d %d\t direction: %d\n", ant_position.x, ant_position.y, dir );
+
 }
 
 void Ant::set_dimensions(int width, int height)
