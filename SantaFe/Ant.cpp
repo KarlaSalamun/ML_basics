@@ -20,25 +20,25 @@ void Ant::move()
         case up:
             ant_position.y -= 1;
             if( ant_position.y < 0 ) {
-                ant_position.y = 0;
+                ant_position.y = map_height - 1;
             }
             break;
         case right:
             ant_position.x += 1;
             if( ant_position.x > map_width - 1 ) {
-                ant_position.x = map_width - 1;
+                ant_position.x = 0;
             }
             break;
         case down:
             ant_position.y += 1;
             if( ant_position.y > map_height - 1 ) {
-                ant_position.y = map_height -1;
+                ant_position.y = 0;
             }
             break;
         case left:
             ant_position.x -= 1;
             if( ant_position.x < 0 ) {
-                ant_position.x = 0;
+                ant_position.x = map_width - 1;
             }
     }
     if( food[ant_position.y*map_width + ant_position.x] ) {

@@ -16,9 +16,12 @@ class TurnRightNode : public AbstractNode {
             is_terminal = true;
             name = "Right";
         }
-        AbstractNode * copy() override;
 
-        int action( Ant &ant ) override;
+        AbstractNode *copy_node() override {
+            return new TurnRightNode(*this);
+        }
+
+    int action( Ant &ant ) override;
 };
 
 

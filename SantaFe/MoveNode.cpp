@@ -4,11 +4,6 @@
 
 #include "MoveNode.h"
 
-AbstractNode *MoveNode::copy()
-{
-    return new MoveNode();
-}
-
 int MoveNode::action(Ant &ant)
 {
     ant.move();

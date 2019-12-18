@@ -41,7 +41,7 @@ template <typename T>
 
     std::sort(population.begin(), population.end(),
               [](const T& a, const T& b) {
-                  return (a.fitness < b.fitness);
+                  return (a.fitness <= b.fitness);
               });
 
 }
@@ -49,9 +49,13 @@ template <typename T>
 template <typename T>
 void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T> members )
 {
+    std::vector<T> tmp_population(2);
     for( int i=0; i<members.size(); i++ ) {
-        population.push_back(members[i]);
+        members[i].data->copy_tree( members[i].data, tmp_population[i].data );
+        //population.push_back(members[i]);
     }
+    population.push_back( tmp_population[0] );
+    population.push_back( tmp_population[1] );
 }
 
 template <typename T>
@@ -82,19 +86,26 @@ T GeneticAlgorithm<T>::get_best_result( std::vector<T> population )
 template <typename T>
 T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 {
-    T best_solution = population[0];
-
-    std::vector<T> parents(2);
-    std::vector<T> children(2);
-    extern int generations;
-
     for ( int i=0; i<generation_number; i++ ) {
+        std::vector<T> best_members(2);
+        std::vector<T> parents(2);
+        std::vector<T> tmp_parents(2);
+        std::vector<T> children(2);
+
         evaluate_population(population);
-        std::vector<T> best_members = get_best_members(population, test_function);
+
+        population[0].data->copy_tree( population[0].data, best_members[0].data );
+        population[1].data->copy_tree( population[1].data, best_members[1].data );
+        evaluate_population( best_members );
+       //std::vector<T> best_members = get_best_members(population, test_function);
+
+        //best_members[0].data->copy_tree( best_members[0].data, tmp_parents[0].data );
+        //best_members[1].data->copy_tree( best_members[1].data, tmp_parents[1].data );
 //        printf("best members: %f %f \n", best_members[0].fitness, best_members[1].fitness );
         //best_solution.print_value();
         std::vector<T> new_population;
         add_members( new_population, best_members );
+        evaluate_population( new_population );
         //add_members( best_population, best_members );
 
         //parents[0] = population[0];
@@ -102,8 +113,12 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 
         // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
         while( new_population.size() < population_size ) {
+
             parents = selection->get_members( population );
-            children = crossover->get_children( parents );
+            parents[0].data->copy_tree( parents[0].data, tmp_parents[0].data );
+            parents[1].data->copy_tree( parents[1].data, tmp_parents[1].data );
+
+            children = crossover->get_children( tmp_parents );
             //children = parents;
             mutation->mutate_solution( children[0] );
             mutation->mutate_solution( children[1] );
@@ -112,7 +127,11 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
         }
 
         //printf("Generation: %d/%d\n", i+1, generation_number);
-        population = new_population;
+        for ( int j=0; j<population.size(); j++ ) {
+            population[j] = std::move(new_population[j].data );
+        }
+
+        //population = new_population;
 /*
         if( test_function->get_value( evaluate_population( population, test_function ) ) == static_cast<double> (0) ) {
             generations++;
@@ -121,12 +140,12 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 */
         evaluate_population( population );
 
-        printf("best members: %f %f \n", population[0].fitness, population[1].fitness );
+  //      printf("generation[%d]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
     evaluate_population(population);
 
-    return get_best_result( population );
-
+    //return get_best_result( population );
+    return population[0];
 }
 
 

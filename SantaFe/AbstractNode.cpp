@@ -55,7 +55,11 @@ AbstractNode *AbstractNode::pick_random( AbstractNode *&node, int rand_depth )
 void AbstractNode::replace_random( AbstractNode *&new_node )
 {
     int random_node = rand() % children.size();
-    AbstractNode *random = pick_random( children[random_node], depth );
+    AbstractNode *random = pick_random( children[random_node], depth - new_node->depth );
+
+    if( random->is_terminal ) {
+        return;
+    }
 
     int random_index = rand() % random->children_number;
     random->children[random_index] = new_node;
@@ -78,4 +82,18 @@ std::vector<AbstractNode *> AbstractNode::duplicate_children()
         duplicated.push_back( children[i] );
     }
     return duplicated;
+}
+
+void AbstractNode::copy_tree( AbstractNode *original, AbstractNode *& copy )
+{
+    if( original != NULL ) {
+        copy = original->copy_node();
+        copy->depth = original->depth;
+        for( int i=0; i<original->children_number; i++ ) {
+            AbstractNode *new_child = original->children[i]->copy_node();
+            new_child->depth = original->children[i]->depth;
+            copy->children[i] = new_child;
+            copy_tree( original->children[i], copy->children[i] );
+        }
+    }
 }

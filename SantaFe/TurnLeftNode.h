@@ -18,9 +18,11 @@ class TurnLeftNode : public AbstractNode {
         }
 
 
-        AbstractNode * copy() override;
+        AbstractNode *copy_node() override {
+            return new TurnLeftNode(*this);
+        }
 
-        int action( Ant &ant ) override;
+    int action( Ant &ant ) override;
 };
 
 

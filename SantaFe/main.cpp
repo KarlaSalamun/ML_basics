@@ -20,7 +20,8 @@
 
 int main()
 {
-    srand(static_cast<double> (time(NULL)));
+    //srand(static_cast<double> (time(NULL)));
+    srand(static_cast<double> (0));
     FILE *fp;
     fp = fopen( "/home/karla/faks/9. semestar/projekt/SantaFe/13-SantaFeAntTrail.txt", "r" );
 
@@ -65,7 +66,7 @@ int main()
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    int population_size = 100;
+    int population_size = 20;
 
     for( int i=0; i<population_size; i++ ) {
         tmp.data = tc->construct_tree_full( 10 );
@@ -74,8 +75,8 @@ int main()
 
     Solution<AbstractNode *> *sol = new Solution<AbstractNode *>;
     Solution<AbstractNode *> *sol1 = new Solution<AbstractNode *>;
-    AbstractNode *root = tc->construct_tree_full( 5 );
-    AbstractNode *root1 = tc->construct_tree_full( 5 );
+    AbstractNode *root = tc->construct_tree_full( 10 );
+    AbstractNode *root1 = tc->construct_tree_full( 10 );
     sol->data = root;
     sol1->data = root1;
     std::vector<Solution<AbstractNode *>> parents;
@@ -94,7 +95,7 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 100;
+    int generation_number = 50;
 
     std::vector<Solution<AbstractNode *>> test_parents;
     AbstractNode *test1 = tc->construct_tree_full(5);
@@ -118,8 +119,8 @@ int main()
             selection, test_function, generation_number, population_size, 0 );
 
     result = algorithm->get_solution( population );
-    tc->draw_tree(result.data, "result.dot");
+    //tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );
-    printf("final result: %d\n", (int)result.fitness);
+    //printf("final result: %d\n", (int)result.fitness);
 }

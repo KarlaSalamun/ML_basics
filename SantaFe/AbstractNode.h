@@ -24,7 +24,9 @@ class AbstractNode {
         AbstractNode( std::vector<AbstractNode *> children, int depth, int subtree_num );
         AbstractNode();
 
-        virtual AbstractNode *copy() = 0;
+        void copy_tree( AbstractNode *original, AbstractNode *& copy );
+        virtual AbstractNode *copy_node() = 0;
+
         virtual int action( Ant &ant ) = 0;
 
         AbstractNode *get_child( int index );

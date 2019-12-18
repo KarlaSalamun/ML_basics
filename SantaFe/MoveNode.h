@@ -16,7 +16,10 @@ class MoveNode : public AbstractNode {
             children_number = 0;
             name = "M";
         }
-        AbstractNode * copy() override;
+
+        AbstractNode *copy_node() override {
+            return new MoveNode(*this);
+        }
 
         int action( Ant &ant ) override;
 

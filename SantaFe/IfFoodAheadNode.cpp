@@ -4,11 +4,6 @@
 
 #include "IfFoodAheadNode.h"
 
-AbstractNode *IfFoodAheadNode::copy()
-{
-    return new IfFoodAheadNode( duplicate_children(), depth, subtree_num );
-}
-
 int IfFoodAheadNode::action(Ant &ant)
 {
     if( ant.is_food_ahead() ) {

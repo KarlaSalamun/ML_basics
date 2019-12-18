@@ -4,11 +4,6 @@
 
 #include "TurnRightNode.h"
 
-AbstractNode *TurnRightNode::copy()
-{
-    return new TurnRightNode();
-}
-
 int TurnRightNode::action(Ant &ant)
 {
     ant.turn_right();

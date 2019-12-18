@@ -11,5 +11,7 @@ double TreeFunction::get_value( Solution<AbstractNode *> tree )
     Ant *test_ant = new Ant();
     test_ant->set_food();
     tree.data->action( *test_ant );
-    return (double)(FOOD_TOTAL - test_ant->food_cnt);
+    double fitness = (double)(FOOD_TOTAL - test_ant->food_cnt);
+    delete(test_ant);
+    return fitness;
 }

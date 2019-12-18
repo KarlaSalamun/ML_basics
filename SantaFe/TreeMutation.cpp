@@ -30,9 +30,9 @@ void TreeMutation<T>::mutate_solution ( T &solution )
     current->children[random_child] = tc->construct_tree_full( rand() % MAX_SUBTREE_DEPTH );
     solution = current;
      */
-    TreeConstructor *tc = new TreeConstructor;
+    TreeConstructor *tc = new TreeConstructor();
     //AbstractNode *data = solution.data;
-    AbstractNode *new_node = tc->construct_tree_full( MAX_SUBTREE_DEPTH );
+    AbstractNode *new_node = tc->construct_tree_grow( rand() % MAX_SUBTREE_DEPTH );
     solution.data->replace_random( new_node );
     tc->rehash_tree( solution.data );
 //    solution.data->pick_random( solution.data, 5 ) = tc->construct_tree_full( 3 );

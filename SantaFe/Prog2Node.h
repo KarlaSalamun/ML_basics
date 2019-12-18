@@ -20,7 +20,9 @@ class Prog2Node : public AbstractNode {
         Prog2Node( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
             AbstractNode( children, depth, subtree_num ) {}
 
-        AbstractNode * copy() override;
+        AbstractNode *copy_node() override {
+            return new Prog2Node(*this);
+        }
 
         int action( Ant &ant ) override;
 

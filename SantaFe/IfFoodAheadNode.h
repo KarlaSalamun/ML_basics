@@ -19,7 +19,10 @@ class IfFoodAheadNode : public AbstractNode {
         IfFoodAheadNode( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
             AbstractNode( children, depth, subtree_num ) {}
 
-        AbstractNode * copy() override;
+        AbstractNode *copy_node() override {
+            return new IfFoodAheadNode(*this);
+        }
+
         int action( Ant &ant ) override;
 };
 
