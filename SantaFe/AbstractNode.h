@@ -29,7 +29,9 @@ class AbstractNode {
 
         virtual int action( Ant &ant ) = 0;
 
-        AbstractNode *get_child( int index );
+        virtual int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food) = 0;
+
+    AbstractNode *get_child( int index );
         void add_child( AbstractNode &node );
 
         int calculate_children();

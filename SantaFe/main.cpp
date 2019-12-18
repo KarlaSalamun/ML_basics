@@ -17,6 +17,7 @@
 #include "TreeSelection.cpp"
 #include "TreeMutation.cpp"
 #include "TreeCrossover.cpp"
+#include "DrawTrail.h"
 
 int main()
 {
@@ -40,9 +41,9 @@ int main()
         ch = fgetc(fp);                                             // skip first character in row
         for (int j=0; j<ant->map_height; j++) {
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
-        //    printf("%d ", ant->food[i*ant->map_height + j]);
+            printf("%d ", ant->food[i*ant->map_height + j]);
         }
-        //printf("\n");
+        printf("\n");
     }
 /*
     while(ant->is_food_ahead()) {
@@ -66,7 +67,7 @@ int main()
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    int population_size = 20;
+    int population_size = 10;
 
     for( int i=0; i<population_size; i++ ) {
         tmp.data = tc->construct_tree_full( 10 );
@@ -95,7 +96,7 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 50;
+    int generation_number = 20;
 
     std::vector<Solution<AbstractNode *>> test_parents;
     AbstractNode *test1 = tc->construct_tree_full(5);
@@ -117,8 +118,18 @@ int main()
 
         GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
-
+/*
     result = algorithm->get_solution( population );
+
+    std::vector<std::pair<int, int>> coordinates;
+    std::vector<bool *> food;
+    result.data->action( *ant, coordinates, food );
+    assert( coordinates.size() == food.size() );
+    assert( coordinates.size() );
+*/
+    //DrawTrail *dt = new DrawTrail();
+    //dt->print_trail(coordinates, food);
+    //delete (dt);
     //tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );

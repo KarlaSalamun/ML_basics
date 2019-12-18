@@ -25,6 +25,7 @@ class Prog2Node : public AbstractNode {
         }
 
         int action( Ant &ant ) override;
+        int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food) override;
 
 };
 
