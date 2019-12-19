@@ -14,7 +14,7 @@ int IfFoodAheadNode::action(Ant &ant)
     }
 }
 
-int IfFoodAheadNode::action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food)
+int IfFoodAheadNode::action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food)
 {
     if( ant.is_food_ahead() ) {
         return get_child(0)->action( ant, coordinates, food );

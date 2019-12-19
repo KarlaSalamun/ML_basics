@@ -22,11 +22,11 @@ public:
         refresh();
     }
 
-    void print_trail( std::vector<std::pair<int, int>> coordinates, std::vector<bool *> food );
+    void print_trail( std::vector<std::pair<int, int>> coordinates, std::vector<std::array<bool, 32*32>> food );
 
 private:
     void print_grid();
-    void print_food( bool *food );
+    void print_food( std::array<bool, 32*32> );
 };
 
 

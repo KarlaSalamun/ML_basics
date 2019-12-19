@@ -5,6 +5,8 @@
 #ifndef SANTAFE_PROG3NODE_H
 #define SANTAFE_PROG3NODE_H
 
+#include <array>
+#include <vector>
 #include "AbstractNode.h"
 
 class Prog3Node : public AbstractNode {
@@ -24,7 +26,8 @@ class Prog3Node : public AbstractNode {
         }
 
     int action( Ant &ant ) override;
-    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food) override;
+    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
+    //int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool[32*32]> &food) override;
 
 };
 

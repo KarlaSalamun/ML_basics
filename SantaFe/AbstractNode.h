@@ -6,6 +6,7 @@
 #define SANTAFE_ABSTRACTNODE_H
 
 #include <vector>
+#include <array>
 #include "Ant.h"
 
 #define TERM_NDOES 3
@@ -29,7 +30,7 @@ class AbstractNode {
 
         virtual int action( Ant &ant ) = 0;
 
-        virtual int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food) = 0;
+        virtual int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) = 0;
 
     AbstractNode *get_child( int index );
         void add_child( AbstractNode &node );

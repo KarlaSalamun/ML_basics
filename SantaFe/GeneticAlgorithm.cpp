@@ -140,7 +140,7 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 */
         evaluate_population( population );
 
-  //      printf("generation[%d]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
+        printf("generation[%d]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
     evaluate_population(population);
 

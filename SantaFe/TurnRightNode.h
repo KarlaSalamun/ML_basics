@@ -6,6 +6,7 @@
 #define SANTAFE_TURNRIGHTNODE_H
 
 
+#include <array>
 #include "AbstractNode.h"
 
 class TurnRightNode : public AbstractNode {
@@ -22,7 +23,8 @@ class TurnRightNode : public AbstractNode {
         }
 
     int action( Ant &ant ) override;
-    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool *> &food) override;
+    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
+    //int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool[32*32]> &food) override;
 };
 
 

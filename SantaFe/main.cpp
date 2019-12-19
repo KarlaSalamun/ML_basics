@@ -41,9 +41,9 @@ int main()
         ch = fgetc(fp);                                             // skip first character in row
         for (int j=0; j<ant->map_height; j++) {
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
-            printf("%d ", ant->food[i*ant->map_height + j]);
+          //  printf("%d ", ant->food[i*ant->map_height + j]);
         }
-        printf("\n");
+        //printf("\n");
     }
 /*
     while(ant->is_food_ahead()) {
@@ -96,12 +96,13 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 20;
+    int generation_number = 10;
 
     std::vector<Solution<AbstractNode *>> test_parents;
-    AbstractNode *test1 = tc->construct_tree_full(5);
+    std::vector<Solution<AbstractNode *>> test_children;
+    AbstractNode *test1 = tc->construct_tree_full(3);
     tc->draw_tree( test1, "parent1.dot" );
-    AbstractNode *test2 = tc->construct_tree_full(5);
+    AbstractNode *test2 = tc->construct_tree_full(3);
     tc->draw_tree( test2, "parent2.dot" );
     Solution<AbstractNode *> test_sol = Solution<AbstractNode *>();
     test_sol.data = test1;
@@ -110,26 +111,27 @@ int main()
     //tc->draw_tree( test_sol.data, "test.dot" );
 
     //mutation->mutate_solution( test_sol );
-    crossover->get_children( test_parents );
+    test_children = crossover->get_children( test_parents );
 
-    tc->draw_tree( test_parents[0].data, "parent1_after.dot" );
-    tc->draw_tree( test_parents[1].data, "parent2_after.dot" );
+    tc->draw_tree( test_children[0].data, "parent1_after.dot" );
+    tc->draw_tree( test_children[1].data, "parent2_after.dot" );
     //tc->draw_tree( test_sol.data, "test_output.dot" );
 
         GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
-/*
-    result = algorithm->get_solution( population );
 
+    result = algorithm->get_solution( population );
+/*
     std::vector<std::pair<int, int>> coordinates;
-    std::vector<bool *> food;
+    std::vector<std::array<bool, 32*32>> food;
     result.data->action( *ant, coordinates, food );
     assert( coordinates.size() == food.size() );
     assert( coordinates.size() );
-*/
-    //DrawTrail *dt = new DrawTrail();
-    //dt->print_trail(coordinates, food);
-    //delete (dt);
+
+    DrawTrail *dt = new DrawTrail();
+    dt->print_trail(coordinates, food);
+    delete (dt);
+    */
     //tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );

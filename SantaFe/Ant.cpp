@@ -45,6 +45,7 @@ void Ant::move()
         food_cnt++;
         food[ant_position.y*map_width + ant_position.x] = false;
     }
+    steps_cnt++;
 
     //printf("moving\t");
     //printf( "coordinates: %d %d\n", ant_position.x, ant_position.y );
@@ -69,6 +70,7 @@ void Ant::turn_left()
         default:
             dir = left;
     }
+    steps_cnt++;
 
     //printf( "turning left\t" );
     //printf( "coordinates: %d %d\t direction: %d\n", ant_position.x, ant_position.y, dir );
@@ -92,6 +94,7 @@ void Ant::turn_right()
         default:
             dir = right;
     }
+    steps_cnt++;
 
     //printf( "turning right\t" );
     //printf( "coordinates: %d %d\t direction: %d\n", ant_position.x, ant_position.y, dir );
