@@ -34,7 +34,7 @@ std::vector<T> GeneticAlgorithm<T>::get_best_members(std::vector<T> population,
 template <typename T>
  void GeneticAlgorithm<T>::evaluate_population(std::vector<T> &population)
 {
-    for ( int i=0; i<population.size(); i++ ) {
+    for ( size_t i=0; i<population.size(); i++ ) {
         population[i].fitness = test_function->get_value( population[i].data );
         //printf("population[%d]: food remaining: %d\n", i, (int)population[i].fitness );
     }
@@ -50,7 +50,7 @@ template <typename T>
 void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T> members )
 {
     std::vector<T> tmp_population(2);
-    for( int i=0; i<members.size(); i++ ) {
+    for( size_t i=0; i<members.size(); i++ ) {
         members[i].data->copy_tree( members[i].data, tmp_population[i].data );
         //population.push_back(members[i]);
     }
@@ -86,7 +86,7 @@ T GeneticAlgorithm<T>::get_best_result( std::vector<T> population )
 template <typename T>
 T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 {
-    for ( int i=0; i<generation_number; i++ ) {
+    for ( size_t i=0; i<generation_number; i++ ) {
         std::vector<T> best_members(2);
         std::vector<T> parents(2);
         std::vector<T> tmp_parents(2);
@@ -119,7 +119,7 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
         }
 
         //printf("Generation: %d/%d\n", i+1, generation_number);
-        for ( int j=0; j<population.size(); j++ ) {
+        for ( size_t j=0; j<population.size(); j++ ) {
             population[j] = std::move(new_population[j].data );
         }
 
@@ -132,7 +132,7 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 */
         evaluate_population( population );
 
-        printf("generation[%d]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
+        printf("generation[%lu]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
     evaluate_population(population);
 

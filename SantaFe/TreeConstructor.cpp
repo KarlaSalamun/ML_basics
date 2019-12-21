@@ -26,6 +26,8 @@ AbstractNode *TreeConstructor::get_random_terminal_node()
             return new TurnLeftNode;
         case 2:
             return new TurnRightNode;
+        default:
+            return new MoveNode;
     }
 }
 

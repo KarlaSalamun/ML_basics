@@ -24,26 +24,24 @@ int main()
     //srand(static_cast<double> (time(NULL)));
     srand(static_cast<double> (0));
     FILE *fp;
-    fp = fopen( "/home/karla/faks/9. semestar/projekt/SantaFe/13-SantaFeAntTrail.txt", "r" );
+    fp = fopen( "../13-SantaFeAntTrail.txt", "r" );
 
     Ant *ant = new Ant();
 
     int height, width;
 
     fscanf( fp, "%d", &height );
-    char ch = fgetc(fp);
+    fgetc(fp);
     fscanf( fp, "%d", &width );
 
     ant->set_dimensions( width, height );
     ant->food = new bool[ant->map_height * ant->map_width];
 
     for (int i=0; i<ant->map_width; i++) {
-        ch = fgetc(fp);                                             // skip first character in row
+        fgetc(fp);                                             // skip first character in row
         for (int j=0; j<ant->map_height; j++) {
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
-          //  printf("%d ", ant->food[i*ant->map_height + j]);
         }
-        //printf("\n");
     }
 /*
     while(ant->is_food_ahead()) {
@@ -60,16 +58,15 @@ int main()
     }
 */
 
-//    printf("%d %d %d\n", ant->ant_position.x, ant->ant_position.y, ant->food_cnt);
 
     TreeConstructor *tc = new TreeConstructor();
     std::vector<Solution<AbstractNode *>> population;
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    int population_size = 100;
+    size_t population_size = 100;
 
-    for( int i=0; i<population_size; i++ ) {
+    for( size_t i=0; i<population_size; i++ ) {
         tmp.data = tc->construct_tree_full( 5 );
         population.push_back( tmp );
     }
@@ -96,7 +93,7 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 5;
+    unsigned int generation_number = 5;
 /*
     std::vector<Solution<AbstractNode *>> test_parents;
     std::vector<Solution<AbstractNode *>> test_children;
@@ -121,6 +118,7 @@ int main()
         GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
 
+
     result = algorithm->get_solution( population );
 
 /*
@@ -134,8 +132,9 @@ int main()
     dt->print_trail(coordinates, food);
     delete (dt);
     */
-    tc->draw_tree(result.data, "result.dot");
+    //tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );
     //printf("final result: %d\n", (int)result.fitness);
+    return 0;
 }
