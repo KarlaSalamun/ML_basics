@@ -55,7 +55,7 @@ AbstractNode *AbstractNode::pick_random( AbstractNode *&node, int rand_depth )
 void AbstractNode::replace_random( AbstractNode *&new_node )
 {
     int random_node = rand() % children.size();
-    AbstractNode *random = pick_random( children[random_node], depth - new_node->depth );
+    AbstractNode *random = pick_random( children[random_node], children[random_node]->depth );
 
     if( random->is_terminal ) {
         return;
@@ -63,6 +63,7 @@ void AbstractNode::replace_random( AbstractNode *&new_node )
 
     int random_index = rand() % random->children_number;
     random->children[random_index] = new_node;
+    random->depth = new_node->depth;
     this->depth = ( this->depth > new_node->depth + this->depth - random->depth ) ?
             this->depth : ( new_node->depth + this->depth - random->depth );
 

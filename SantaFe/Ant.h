@@ -20,6 +20,7 @@ class Ant {
 
         int steps_cnt;
         int food_cnt;
+        int actions_cnt;
 
         bool *food;
         int map_height;

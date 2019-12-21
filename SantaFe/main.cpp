@@ -67,17 +67,17 @@ int main()
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    int population_size = 10;
+    int population_size = 100;
 
     for( int i=0; i<population_size; i++ ) {
-        tmp.data = tc->construct_tree_full( 10 );
+        tmp.data = tc->construct_tree_full( 5 );
         population.push_back( tmp );
     }
 
     Solution<AbstractNode *> *sol = new Solution<AbstractNode *>;
     Solution<AbstractNode *> *sol1 = new Solution<AbstractNode *>;
-    AbstractNode *root = tc->construct_tree_full( 10 );
-    AbstractNode *root1 = tc->construct_tree_full( 10 );
+    AbstractNode *root = tc->construct_tree_full( 5 );
+    AbstractNode *root1 = tc->construct_tree_full( 5 );
     sol->data = root;
     sol1->data = root1;
     std::vector<Solution<AbstractNode *>> parents;
@@ -96,8 +96,8 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    int generation_number = 10;
-
+    int generation_number = 5;
+/*
     std::vector<Solution<AbstractNode *>> test_parents;
     std::vector<Solution<AbstractNode *>> test_children;
     AbstractNode *test1 = tc->construct_tree_full(3);
@@ -108,19 +108,21 @@ int main()
     test_sol.data = test1;
     test_parents.push_back(test1);
     test_parents.push_back(test2);
+    */
     //tc->draw_tree( test_sol.data, "test.dot" );
 
     //mutation->mutate_solution( test_sol );
-    test_children = crossover->get_children( test_parents );
+    //test_children = crossover->get_children( test_parents );
 
-    tc->draw_tree( test_children[0].data, "parent1_after.dot" );
-    tc->draw_tree( test_children[1].data, "parent2_after.dot" );
+    //tc->draw_tree( test_children[0].data, "parent1_after.dot" );
+    //tc->draw_tree( test_children[1].data, "parent2_after.dot" );
     //tc->draw_tree( test_sol.data, "test_output.dot" );
 
         GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
 
     result = algorithm->get_solution( population );
+
 /*
     std::vector<std::pair<int, int>> coordinates;
     std::vector<std::array<bool, 32*32>> food;
@@ -132,7 +134,7 @@ int main()
     dt->print_trail(coordinates, food);
     delete (dt);
     */
-    //tc->draw_tree(result.data, "result.dot");
+    tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );
     //printf("final result: %d\n", (int)result.fitness);

@@ -41,7 +41,7 @@ template <typename T>
 
     std::sort(population.begin(), population.end(),
               [](const T& a, const T& b) {
-                  return (a.fitness <= b.fitness);
+                  return (a.fitness < b.fitness);
               });
 
 }
@@ -97,19 +97,10 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
         population[0].data->copy_tree( population[0].data, best_members[0].data );
         population[1].data->copy_tree( population[1].data, best_members[1].data );
         evaluate_population( best_members );
-       //std::vector<T> best_members = get_best_members(population, test_function);
 
-        //best_members[0].data->copy_tree( best_members[0].data, tmp_parents[0].data );
-        //best_members[1].data->copy_tree( best_members[1].data, tmp_parents[1].data );
-//        printf("best members: %f %f \n", best_members[0].fitness, best_members[1].fitness );
-        //best_solution.print_value();
         std::vector<T> new_population;
         add_members( new_population, best_members );
         evaluate_population( new_population );
-        //add_members( best_population, best_members );
-
-        //parents[0] = population[0];
-        //parents[1] = population[1];
 
         // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
         while( new_population.size() < population_size ) {
@@ -117,11 +108,12 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
             parents = selection->get_members( population );
             parents[0].data->copy_tree( parents[0].data, tmp_parents[0].data );
             parents[1].data->copy_tree( parents[1].data, tmp_parents[1].data );
-
             children = crossover->get_children( tmp_parents );
             //children = parents;
             mutation->mutate_solution( children[0] );
             mutation->mutate_solution( children[1] );
+            assert( children[0].data->depth <= 5 );
+            assert( children[1].data->depth <= 5 );
             evaluate_population( children );
             add_members(new_population, children );
         }

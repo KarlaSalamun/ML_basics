@@ -13,10 +13,10 @@ std::vector<T> TreeCrossover<T>::get_children(std::vector<T> &parents) {
     std::vector<T> result;
 
     int rand_depth = rand() % parents[0].data->depth;
-    AbstractNode *random_tree1 = parents[0].data->pick_random( parents[0].data, 0 );
+    AbstractNode *random_tree1 = parents[0].data->pick_random( parents[0].data, rand_depth );
 
     rand_depth = rand() % parents[1].data->depth;
-    AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, 0 );
+    AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, rand_depth );
 
     if( parents[0].data->depth - random_tree1->depth + random_tree2->depth > 5 ) {
        // printf("preskoceno krizanje\n");
