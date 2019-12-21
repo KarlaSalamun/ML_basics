@@ -80,6 +80,8 @@ int main()
     std::vector<Solution<AbstractNode *>> parents;
     parents.push_back(*sol);
     parents.push_back(*sol1);
+
+    delete sol;
     //std::vector<Solution<AbstractNode *>> offspring = c->get_children(parents);
     //tc->draw_tree( root );
     //root->action( *ant );

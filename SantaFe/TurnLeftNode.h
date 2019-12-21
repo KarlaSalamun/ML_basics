@@ -18,7 +18,6 @@ class TurnLeftNode : public AbstractNode {
             name = "Left";
         }
 
-
         AbstractNode *copy_node() override {
             return new TurnLeftNode(*this);
         }

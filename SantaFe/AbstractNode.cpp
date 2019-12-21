@@ -16,7 +16,14 @@ AbstractNode::AbstractNode( std::vector <AbstractNode *> children, int depth, in
     subtree_num = subtree_num;
 }
 
-AbstractNode *AbstractNode::get_child( int index )
+AbstractNode::~AbstractNode()
+{
+    for( int i=0; i<this->children_number; i++ ) {
+        delete children[i];
+    }
+}
+
+AbstractNode *AbstractNode::get_child( size_t index )
 {
     if( index >= this->children.size() ) {
         return NULL;
@@ -33,7 +40,7 @@ int AbstractNode::calculate_children()
 {
     subtree_num = 0;
     depth = 1;
-    for( int i=0; i<children.size(); i++ ) {
+    for( size_t i=0; i<children.size(); i++ ) {
         subtree_num += children[i]->calculate_children() + 1;
         depth = std::max( depth, children[i]->depth + 1 );
     }
@@ -79,7 +86,7 @@ void AbstractNode::set_child( AbstractNode *&child_node, AbstractNode *&new_node
 std::vector<AbstractNode *> AbstractNode::duplicate_children()
 {
     std::vector<AbstractNode *> duplicated;
-    for ( int i=0; i<children.size(); i++ ) {
+    for ( size_t i=0; i<children.size(); i++ ) {
         duplicated.push_back( children[i] );
     }
     return duplicated;

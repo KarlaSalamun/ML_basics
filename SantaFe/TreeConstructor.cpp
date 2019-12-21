@@ -41,6 +41,8 @@ AbstractNode *TreeConstructor::get_random_function_node()
             return new Prog2Node;
         case 2:
             return new Prog3Node;
+        default:
+            return new IfFoodAheadNode;
     }
 }
 
@@ -60,6 +62,8 @@ AbstractNode *TreeConstructor::get_random_any()
             return new Prog2Node;
         case 5:
             return new Prog3Node;
+        default:
+            return new MoveNode;
     }
 }
 
