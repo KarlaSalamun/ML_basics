@@ -17,6 +17,7 @@ class Ant {
         direction dir;
 
         Ant();
+        ~Ant();
 
         int steps_cnt;
         int food_cnt;

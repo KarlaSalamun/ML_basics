@@ -14,6 +14,11 @@ Ant::Ant()
     actions_cnt = 0;
 }
 
+Ant::~Ant()
+{
+    delete[] food;
+}
+
 void Ant::move()
 {
 
