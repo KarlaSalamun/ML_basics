@@ -31,6 +31,11 @@ class Solution {
 //        Solution( int dimension ) { data.assign( dimension, 0 ); }
         Solution( T data ) : data( data ) {}
         Solution() {}
+        /*
+        ~Solution() {
+            delete data;
+        }
+         */
 };
 
 

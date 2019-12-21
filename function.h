@@ -10,6 +10,7 @@
 template <typename  T>
 class Function {
     public:
+    virtual ~Function() {}
         virtual double get_value( T args ) = 0;
 };
 

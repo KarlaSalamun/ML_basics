@@ -17,8 +17,6 @@ class IfFoodAheadNode : public AbstractNode {
             children.assign( children_number, nullptr );
             name = "If";
         }
-        IfFoodAheadNode( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
-            AbstractNode( children, depth, subtree_num ) {}
 
         AbstractNode *copy_node() override {
             return new IfFoodAheadNode(*this);

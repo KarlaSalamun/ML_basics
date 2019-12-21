@@ -49,13 +49,13 @@ template <typename T>
 template <typename T>
 void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T> members )
 {
-    std::vector<T> tmp_population(2);
+    size_t old_size = population.size();
+    population.resize( old_size + 2 );
     for( size_t i=0; i<members.size(); i++ ) {
-        members[i].data->copy_tree( members[i].data, tmp_population[i].data );
-        //population.push_back(members[i]);
+        members[i].data->copy_tree( members[i].data, population[old_size+i].data );
     }
-    population.push_back( tmp_population[0] );
-    population.push_back( tmp_population[1] );
+   // population.push_back( tmp_population[0] );
+   // population.push_back( tmp_population[1] );
 }
 
 template <typename T>

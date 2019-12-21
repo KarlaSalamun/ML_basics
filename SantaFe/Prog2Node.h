@@ -17,8 +17,6 @@ class Prog2Node : public AbstractNode {
             children.assign( children_number, nullptr );
             name = "Prog2";
         }
-        Prog2Node( std::vector<AbstractNode *> children, int depth, int subtree_num ) :
-            AbstractNode( children, depth, subtree_num ) {}
 
         AbstractNode *copy_node() override {
             return new Prog2Node(*this);

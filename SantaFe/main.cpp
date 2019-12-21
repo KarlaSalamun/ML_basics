@@ -1,23 +1,18 @@
-#include <iostream>
 #include <vector>
 #include "Ant.h"
 #include "../Solution.h"
 #include "TreeConstructor.h"
-#include "TreePopulation.h"
-#include "../genetic_algorithm/CrossoverOperator.h"
-#include "../genetic_algorithm/SelectionOperator.h"
-#include "../genetic_algorithm/MutationOperator.h"
 #include "GeneticAlgorithm.h"
 #include "TreeFunction.h"
 #include "TreeCrossover.h"
 #include "TreeMutation.h"
 #include "TreeSelection.h"
 #include "GeneticAlgorithm.cpp"
-//#include "TreeConstructor.cpp"
 #include "TreeSelection.cpp"
 #include "TreeMutation.cpp"
 #include "TreeCrossover.cpp"
-#include "DrawTrail.h"
+
+//#define GUI 1
 
 int main()
 {
@@ -43,6 +38,7 @@ int main()
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
         }
     }
+    delete ant;
 /*
     while(ant->is_food_ahead()) {
         ant->move();
@@ -60,32 +56,15 @@ int main()
 
 
     TreeConstructor *tc = new TreeConstructor();
-    std::vector<Solution<AbstractNode *>> population;
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    size_t population_size = 100;
+    size_t population_size = 10;
+    std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
-        tmp.data = tc->construct_tree_full( 5 );
-        population.push_back( tmp );
+        population[i].data = tc->construct_tree_full( 5 );
     }
-
-    Solution<AbstractNode *> *sol = new Solution<AbstractNode *>;
-    Solution<AbstractNode *> *sol1 = new Solution<AbstractNode *>;
-    AbstractNode *root = tc->construct_tree_full( 5 );
-    AbstractNode *root1 = tc->construct_tree_full( 5 );
-    sol->data = root;
-    sol1->data = root1;
-    std::vector<Solution<AbstractNode *>> parents;
-    parents.push_back(*sol);
-    parents.push_back(*sol1);
-    //std::vector<Solution<AbstractNode *>> offspring = c->get_children(parents);
-    //tc->draw_tree( root );
-    //root->action( *ant );
-    //printf( "food eaten: %d\n", ant->food_cnt );
-
-//    tc->draw_tree( parents[0].data, "input.dot" );
 
     TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
     TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
@@ -94,34 +73,13 @@ int main()
     TreeFunction *test_function = new TreeFunction();
 
     unsigned int generation_number = 5;
-/*
-    std::vector<Solution<AbstractNode *>> test_parents;
-    std::vector<Solution<AbstractNode *>> test_children;
-    AbstractNode *test1 = tc->construct_tree_full(3);
-    tc->draw_tree( test1, "parent1.dot" );
-    AbstractNode *test2 = tc->construct_tree_full(3);
-    tc->draw_tree( test2, "parent2.dot" );
-    Solution<AbstractNode *> test_sol = Solution<AbstractNode *>();
-    test_sol.data = test1;
-    test_parents.push_back(test1);
-    test_parents.push_back(test2);
-    */
-    //tc->draw_tree( test_sol.data, "test.dot" );
-
-    //mutation->mutate_solution( test_sol );
-    //test_children = crossover->get_children( test_parents );
-
-    //tc->draw_tree( test_children[0].data, "parent1_after.dot" );
-    //tc->draw_tree( test_children[1].data, "parent2_after.dot" );
-    //tc->draw_tree( test_sol.data, "test_output.dot" );
-
         GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
             selection, test_function, generation_number, population_size, 0 );
 
 
     result = algorithm->get_solution( population );
 
-/*
+#ifdef GUI
     std::vector<std::pair<int, int>> coordinates;
     std::vector<std::array<bool, 32*32>> food;
     result.data->action( *ant, coordinates, food );
@@ -131,10 +89,16 @@ int main()
     DrawTrail *dt = new DrawTrail();
     dt->print_trail(coordinates, food);
     delete (dt);
-    */
+#endif
+
     //tc->draw_tree(result.data, "result.dot");
     //printf("\n\n\n");
     //result.data->action( *ant );
     //printf("final result: %d\n", (int)result.fitness);
+
+    delete algorithm;
+
+    delete tc;
+
     return 0;
 }

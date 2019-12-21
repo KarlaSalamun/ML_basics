@@ -6,9 +6,9 @@
 #define GENETIC_ALGORITHM_GENETICALGORITHM_H
 
 #include "../optimization_function.h"
-#include "../genetic_algorithm/CrossoverOperator.h"
-#include "../genetic_algorithm/MutationOperator.h"
-#include "../genetic_algorithm/SelectionOperator.h"
+#include "../CrossoverOperator.h"
+#include "../MutationOperator.h"
+#include "../SelectionOperator.h"
 #include "../Solution.h"
 
 using namespace std;
@@ -20,8 +20,10 @@ class GeneticAlgorithm  {
             crossover(crossover), mutation(mutation), selection(selection), test_function(test_function), generation_number(generation_number), population_size(population_size), dim_size(dim_size) {}
         ~GeneticAlgorithm()
         {
+            delete test_function;
             delete crossover;
             delete mutation;
+            delete selection;
         }
         T get_solution ( std::vector<T> population );
         void set_crossover ( CrossoverOperator<T> *crossover )

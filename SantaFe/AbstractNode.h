@@ -22,8 +22,8 @@ class AbstractNode {
         bool is_terminal;
         const char *name;
 
-        AbstractNode( std::vector<AbstractNode *> children, int depth, int subtree_num );
         AbstractNode();
+        virtual ~AbstractNode();
 
         void copy_tree( AbstractNode *original, AbstractNode *& copy );
         virtual AbstractNode *copy_node() = 0;

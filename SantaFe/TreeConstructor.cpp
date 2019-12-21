@@ -41,6 +41,8 @@ AbstractNode *TreeConstructor::get_random_function_node()
             return new Prog2Node;
         case 2:
             return new Prog3Node;
+        default:
+            return new IfFoodAheadNode;
     }
 }
 
@@ -60,6 +62,8 @@ AbstractNode *TreeConstructor::get_random_any()
             return new Prog2Node;
         case 5:
             return new Prog3Node;
+        default:
+            return new MoveNode;
     }
 }
 
@@ -211,4 +215,32 @@ void TreeConstructor::draw_tree( AbstractNode *&root, std::string filename )
     fclose( fp );
 }
 
+void TreeConstructor::destroy_tree(AbstractNode *&root)
+{
+    /*
+    std::queue<AbstractNode *> queue;
+    std::vector<AbstractNode *> delete_nodes;
+    queue.push( root );
+
+    int ref_depth = 1;
+    while( ref_depth < root->depth ) {
+        int size = queue.size();
+        for( int i=0; i<size; i++ ) {
+            AbstractNode *current = queue.front();
+            queue.pop();
+            for( int j=0; j<current->children_number; j++ ) {
+                queue.push( current->children[j] );
+                delete_nodes.push_back( current->children[j] );
+            }
+        }
+        ref_depth++;
+    }
+
+    for( size_t i=0; i<delete_nodes.size(); i++ ) {
+        delete delete_nodes[i];
+    }
+
+    delete root;
+     */
+}
 

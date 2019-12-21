@@ -10,7 +10,8 @@
 template <typename T>
 class MutationOperator {
 public:
-    virtual void mutate_solution ( std::vector<T> &solution ) = 0;
+    virtual void mutate_solution ( T &solution ) = 0;
+    virtual ~MutationOperator() {}
 };
 
 

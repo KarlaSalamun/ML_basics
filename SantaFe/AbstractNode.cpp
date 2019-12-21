@@ -9,11 +9,11 @@
 AbstractNode::AbstractNode()
 {}
 
-AbstractNode::AbstractNode( std::vector <AbstractNode *> children, int depth, int subtree_num )
+AbstractNode::~AbstractNode()
 {
-    children = children;
-    depth = depth;
-    subtree_num = subtree_num;
+    for( size_t i=0; i<children.size(); i++ ) {
+        delete children[i];
+    }
 }
 
 AbstractNode *AbstractNode::get_child( int index )

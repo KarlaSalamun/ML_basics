@@ -12,6 +12,7 @@
 template <typename T>
 class TreeMutation : public MutationOperator<T> {
 public:
+    virtual ~TreeMutation() {}
     void mutate_solution ( T &solution );
 };
 
