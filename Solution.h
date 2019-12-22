@@ -27,7 +27,7 @@ class Solution {
         Solution( const Solution& obj )
         {
             //printf("copy ctor\n");
-            this->copy_data( obj.data );
+            this->copy_data( data, obj.data );
             this->fitness = obj.fitness;
         }
 
@@ -47,13 +47,12 @@ class Solution {
         Solution( T data ) : data( data ) {}
         Solution() {}
 
-        void copy_data( const T &src );
+        void copy_data( T &dest, const T &src );
 /*
         ~Solution() {
             delete data;
         }
 */
 };
-
 
 #endif //PROJEKT_SOLUTION_H
