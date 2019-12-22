@@ -9,12 +9,27 @@
 #include <cstdio>
 #include "function.h"
 
+using namespace std;
 
 template <typename  T>
 class Solution {
     public:
         T data;
         double fitness;
+/*
+        Solution<T>& operator=( Solution<T> other)
+        {
+            this->copy_data(  )
+            data->copy_tree( data, other.data );
+            return *this;
+        }
+*/
+        Solution( const Solution& obj )
+        {
+            //printf("copy ctor\n");
+            this->copy_data( obj.data );
+            this->fitness = obj.fitness;
+        }
 
         double get_fitness(T solution, Function<T> *test_function )
         {
@@ -31,11 +46,13 @@ class Solution {
 //        Solution( int dimension ) { data.assign( dimension, 0 ); }
         Solution( T data ) : data( data ) {}
         Solution() {}
-        /*
+
+        void copy_data( const T &src );
+/*
         ~Solution() {
             delete data;
         }
-         */
+*/
 };
 
 

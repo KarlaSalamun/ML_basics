@@ -35,7 +35,7 @@ template <typename T>
  void GeneticAlgorithm<T>::evaluate_population(std::vector<T> &population)
 {
     for ( size_t i=0; i<population.size(); i++ ) {
-        population[i].fitness = test_function->get_value( population[i].data );
+        population[i].fitness = test_function->get_value( population[i] );
         //printf("population[%d]: food remaining: %d\n", i, (int)population[i].fitness );
     }
 

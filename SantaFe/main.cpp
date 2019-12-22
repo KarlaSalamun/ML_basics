@@ -59,7 +59,7 @@ int main()
     Solution<AbstractNode *> result;
     Solution<AbstractNode *> tmp;
 
-    size_t population_size = 10;
+    size_t population_size = 2;
     std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
