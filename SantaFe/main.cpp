@@ -7,6 +7,7 @@
 #include "TreeCrossover.h"
 #include "TreeMutation.h"
 #include "TreeSelection.h"
+#include "DrawTrail.h"
 #include "GeneticAlgorithm.cpp"
 #include "TreeSelection.cpp"
 #include "TreeMutation.cpp"
@@ -33,33 +34,17 @@ int main()
     ant->food = new bool[ant->map_height * ant->map_width];
 
     for (int i=0; i<ant->map_width; i++) {
-        fgetc(fp);                                             // skip first character in row
+        fgetc(fp); // skip first character in row
         for (int j=0; j<ant->map_height; j++) {
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
         }
     }
     delete ant;
-/*
-    while(ant->is_food_ahead()) {
-        ant->move();
-    }
-    ant->turn_right();
-
-    while(ant->is_food_ahead()) {
-        ant->move();
-    }
-    ant->turn_left();
-    while(ant->is_food_ahead()) {
-        ant->move();
-    }
-*/
 
 
     TreeConstructor *tc = new TreeConstructor();
-    Solution<AbstractNode *> result;
-    Solution<AbstractNode *> tmp;
 
-    size_t population_size = 2;
+    size_t population_size = 10;
     std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
@@ -72,33 +57,14 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    unsigned int generation_number = 5;
-        GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>> ( crossover, mutation,
-            selection, test_function, generation_number, population_size, 0 );
+    unsigned int generation_number = 50;
+    Solution<AbstractNode *> result;
 
-
-    result = algorithm->get_solution( population );
-
-#ifdef GUI
-    std::vector<std::pair<int, int>> coordinates;
-    std::vector<std::array<bool, 32*32>> food;
-    result.data->action( *ant, coordinates, food );
-    assert( coordinates.size() == food.size() );
-    assert( coordinates.size() );
-
-    DrawTrail *dt = new DrawTrail();
-    dt->print_trail(coordinates, food);
-    delete (dt);
-#endif
-
-    //tc->draw_tree(result.data, "result.dot");
-    //printf("\n\n\n");
-    //result.data->action( *ant );
-    //printf("final result: %d\n", (int)result.fitness);
-
-    delete algorithm;
+    GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>>
+            ( crossover, mutation, selection, test_function, generation_number, population_size, 0 );
+    result = algorithm->get_solution(population);
 
     delete tc;
-
+    delete algorithm;
     return 0;
 }

@@ -11,7 +11,7 @@ double TreeFunction::get_value( Solution<AbstractNode *> solution )
     double fitness;
     Ant *test_ant = new Ant();
     test_ant->set_food();
-    while ( test_ant->actions_cnt < 50 ) {
+    while ( test_ant->actions_cnt < 100 ) {
         //printf("%d\n", test_ant->steps_cnt);
         solution.data->action(*test_ant);
     }

@@ -14,7 +14,7 @@ using namespace std;
 template <typename  T>
 class Solution {
     public:
-        T data;
+        T data = nullptr;
         double fitness;
 /*
         Solution<T>& operator=( Solution<T> other)
@@ -24,6 +24,7 @@ class Solution {
             return *this;
         }
 */
+
         Solution( const Solution& obj )
         {
             //printf("copy ctor\n");
@@ -48,11 +49,11 @@ class Solution {
         Solution() {}
 
         void copy_data( T &dest, const T &src );
-/*
+
         ~Solution() {
             delete data;
         }
-*/
+
 };
 
 #endif //PROJEKT_SOLUTION_H

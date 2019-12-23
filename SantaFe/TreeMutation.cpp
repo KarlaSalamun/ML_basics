@@ -7,7 +7,7 @@
 #include "TreeMutation.h"
 #include "TreeConstructor.h"
 
-#define MAX_SUBTREE_DEPTH 3
+#define MAX_SUBTREE_DEPTH 5
 
 // replaces random node with randomly generated subtree
 

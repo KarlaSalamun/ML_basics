@@ -10,7 +10,7 @@ template <typename T>
 std::vector<T> TreeCrossover<T>::get_children(std::vector<T> &parents) {
 
     TreeConstructor *tc = new TreeConstructor();
-    std::vector<T> result;
+    std::vector<T> result(2);
 
     int rand_depth = rand() % parents[0].data->depth;
     AbstractNode *random_tree1 = parents[0].data->pick_random( parents[0].data, rand_depth );
@@ -19,9 +19,9 @@ std::vector<T> TreeCrossover<T>::get_children(std::vector<T> &parents) {
     AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, rand_depth );
 
     if( parents[0].data->depth - random_tree1->depth + random_tree2->depth > 5 ) {
+        result[0] = parents[0];
+        result[1] = parents[1];
        // printf("preskoceno krizanje\n");
-        result.push_back( parents[0] );
-        result.push_back( parents[1] );
         return  result;
     }
 
@@ -32,8 +32,8 @@ std::vector<T> TreeCrossover<T>::get_children(std::vector<T> &parents) {
     tc->rehash_tree( parents[0].data );
     tc->rehash_tree( parents[1].data );
 
-    result.push_back( parents[0] );
-    result.push_back( parents[1] );
+    result[0] = parents[0];
+    result[1] = parents[1];
 
     delete tc;
     return result;

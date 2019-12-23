@@ -11,12 +11,10 @@ AbstractNode::AbstractNode()
 
 AbstractNode::~AbstractNode()
 {
-    /*
-
     for( size_t i=0; i<children.size(); i++ ) {
         delete children[i];
     }
-     */
+
 }
 
 AbstractNode *AbstractNode::get_child( int index )

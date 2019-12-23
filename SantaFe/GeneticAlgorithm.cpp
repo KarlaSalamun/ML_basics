@@ -120,7 +120,7 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
 
         //printf("Generation: %d/%d\n", i+1, generation_number);
         for ( size_t j=0; j<population.size(); j++ ) {
-            population[j] = std::move(new_population[j].data );
+            population[j].data = std::move(new_population[j].data );
         }
 
         //population = new_population;
