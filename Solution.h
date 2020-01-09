@@ -24,6 +24,16 @@ class Solution {
             return *this;
         }
 */
+/*
+        Solution<T>& operator = ( Solution<T>&& other )
+        {
+            printf("move assignment\n");
+            this->copy_data( data, other.data );
+            this->fitness = other.fitness;
+            delete other.data;
+            return *this;
+        }
+*/
 
         Solution( const Solution& obj )
         {

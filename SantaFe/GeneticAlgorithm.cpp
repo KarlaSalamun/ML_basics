@@ -17,15 +17,27 @@
 
 using namespace std;
 
+static int compare_members(const void *m1, const void *m2)
+{
+    const Solution<AbstractNode *>* member1 = static_cast<const Solution<AbstractNode *>*>(m1);
+    const Solution<AbstractNode *>* member2 = static_cast<const Solution<AbstractNode *>*>(m2);
+    return member1->fitness - member2->fitness;
+}
+
 template <typename T>
 std::vector<T> GeneticAlgorithm<T>::get_best_members(std::vector<T> population,
         Function<T> *test_function )
 {
     std::vector<T> best_members;
+
+    qsort( population.data(), population.size(), sizeof(T), compare_members );
+
+    /*
     std::sort(population.begin(), population.end(),
               [](const T& a, const T& b) {
                   return (a.fitness < b.fitness);
               });
+              */
     best_members.push_back(population[0]);
     best_members.push_back(population[1]);
     return best_members;
@@ -39,11 +51,14 @@ template <typename T>
         //printf("population[%d]: food remaining: %d\n", i, (int)population[i].fitness );
     }
 
+    qsort( population.data(), population.size(), sizeof(T), compare_members );
+
+    /*
     std::sort(population.begin(), population.end(),
               [](const T& a, const T& b) {
                   return (a.fitness < b.fitness);
               });
-
+              */
 }
 
 template <typename T>

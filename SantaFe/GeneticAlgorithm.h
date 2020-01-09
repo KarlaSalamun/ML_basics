@@ -13,6 +13,8 @@
 
 using namespace std;
 
+static int compare_members(const void *m1, const void *m2);
+
 template <typename T>
 class GeneticAlgorithm  {
     public:
@@ -47,6 +49,7 @@ private:
         void add_members( std::vector<T> &population,std::vector<T> members );
         std::vector<T> create_population();
         T get_best_result( std::vector<T> population );
+        //int compare_members( const void *m1, const void *m2 );
         CrossoverOperator<T> *crossover;
         MutationOperator<T> *mutation = nullptr;
         SelectionOperator<T> *selection = nullptr;
