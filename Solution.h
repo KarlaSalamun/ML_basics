@@ -24,24 +24,29 @@ class Solution {
             return *this;
         }
 */
-/*
-        Solution<T>& operator = ( Solution<T>&& other )
+
+    Solution<T> (const Solution<T>& ) = delete;
+    Solution<T>&operator=(const Solution<T>&) = delete;
+
+    Solution& operator = ( Solution&& other )
         {
             printf("move assignment\n");
-            this->copy_data( data, other.data );
-            this->fitness = other.fitness;
-            delete other.data;
+            this->data = other.data;
+            other.data = nullptr;
             return *this;
         }
-*/
 
+        Solution(Solution&& sol) : data(data), fitness(fitness) {
+            sol.data = nullptr;
+        }
+/*
         Solution( const Solution& obj )
         {
-            //printf("copy ctor\n");
+            //printf("copy ctor\n")ss by value which will make a copy, but you cannot copy a std::unique_ptr. Passing by reference should work:;
             this->copy_data( data, obj.data );
             this->fitness = obj.fitness;
         }
-
+*/
         double get_fitness(T solution, Function<T> *test_function )
         {
             return test_function->get_value( solution );

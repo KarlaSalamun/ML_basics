@@ -152,7 +152,9 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
     evaluate_population(population);
 
     //return get_best_result( population );
-    return population[0];
+    T best = population[0];
+    return best;
+
 }
 
 
