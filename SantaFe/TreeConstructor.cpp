@@ -71,7 +71,7 @@ AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
 {
     AbstractNode *root = get_random_function_node();
     //int depth = rand() % max_depth + 1;
-    int depth = 5;
+    int depth = max_depth;
     int identifier = 0;
     root->id = identifier;
     identifier++;

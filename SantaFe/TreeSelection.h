@@ -12,7 +12,7 @@ template <typename  T>
 class TreeSelection : public SelectionOperator<T> {
     public:
     virtual ~TreeSelection() {}
-        std::vector<T> get_members( std::vector<T> population );
+        void get_members( std::vector<T> population, std::vector<T> &members );
 };
 
 

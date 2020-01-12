@@ -24,29 +24,55 @@ class Solution {
             return *this;
         }
 */
+        // disable calling copy ctor and copy assignment
+  //      Solution<T> (const Solution<T>& ) = delete;
+  //      Solution<T>&operator=(const Solution<T>&) = delete;
 
-    Solution<T> (const Solution<T>& ) = delete;
-    Solution<T>&operator=(const Solution<T>&) = delete;
+        // move ctor - transfer ownership of sol.data to data
+        /*
+        Solution( Solution&& sol) : data(move(sol.data)), fitness(fitness)
+        {
+        }
+         */
 
-    Solution& operator = ( Solution&& other )
+        Solution& operator = ( Solution&& other )
         {
             printf("move assignment\n");
+            if( &other == this ) {
+                return *this;
+            }
+            delete data;
             this->data = other.data;
             other.data = nullptr;
             return *this;
         }
 
-        Solution(Solution&& sol) : data(data), fitness(fitness) {
-            sol.data = nullptr;
-        }
-/*
+        // copy constructor - deep copy of obj.data to this->data
+
         Solution( const Solution& obj )
         {
-            //printf("copy ctor\n")ss by value which will make a copy, but you cannot copy a std::unique_ptr. Passing by reference should work:;
+            //data = new T;
+            //*data = *obj.data;
+            //printf("copy ctor\n")
             this->copy_data( data, obj.data );
             this->fitness = obj.fitness;
         }
-*/
+
+
+        // copy assignment - deep copy of obj.data to this-> data
+
+        Solution<T>&operator = ( const Solution<T>& obj )
+        {
+            if ( &obj == this ) {
+                return *this;
+            }
+            delete data;
+            //data = new T;
+            this->copy_data( data, obj.data );
+
+            return *this;
+        }
+
         double get_fitness(T solution, Function<T> *test_function )
         {
             return test_function->get_value( solution );

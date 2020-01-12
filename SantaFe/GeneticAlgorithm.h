@@ -27,7 +27,7 @@ class GeneticAlgorithm  {
             delete mutation;
             delete selection;
         }
-        T get_solution ( std::vector<T> population );
+        void get_solution ( std::vector<T> population, T& result );
         void set_crossover ( CrossoverOperator<T> *crossover )
         {
             delete this->crossover;

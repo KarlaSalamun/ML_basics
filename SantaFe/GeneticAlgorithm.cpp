@@ -38,8 +38,8 @@ std::vector<T> GeneticAlgorithm<T>::get_best_members(std::vector<T> population,
                   return (a.fitness < b.fitness);
               });
               */
-    best_members.push_back(population[0]);
-    best_members.push_back(population[1]);
+    best_members.push_back(move(population[0]));
+    best_members.push_back(move(population[1]));
     return best_members;
 }
 
@@ -99,13 +99,13 @@ T GeneticAlgorithm<T>::get_best_result( std::vector<T> population )
 }
 
 template <typename T>
-T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
+void GeneticAlgorithm<T>::get_solution ( std::vector<T> population, T& result )
 {
     for ( size_t i=0; i<generation_number; i++ ) {
         std::vector<T> best_members(2);
-        std::vector<T> parents(2);
+        std::vector<T> parents;
         std::vector<T> tmp_parents(2);
-        std::vector<T> children(2);
+        std::vector<T> children;
 
         evaluate_population(population);
 
@@ -120,10 +120,10 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
         // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
         while( new_population.size() < population_size ) {
 
-            parents = selection->get_members( population );
+            selection->get_members( population, parents );
             parents[0].data->copy_tree( parents[0].data, tmp_parents[0].data );
             parents[1].data->copy_tree( parents[1].data, tmp_parents[1].data );
-            children = crossover->get_children( tmp_parents );
+            crossover->get_children( tmp_parents, children );
             //children = parents;
             mutation->mutate_solution( children[0] );
             mutation->mutate_solution( children[1] );
@@ -133,9 +133,10 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
             add_members(new_population, children );
         }
 
-        //printf("Generation: %d/%d\n", i+1, generation_number);
-        for ( size_t j=0; j<population.size(); j++ ) {
-            population[j].data = std::move(new_population[j].data );
+        population.clear();
+
+        for ( size_t j=0; j<new_population.size(); j++ ) {
+            population.push_back( move( new_population[j] ) );
         }
 
         //population = new_population;
@@ -150,10 +151,7 @@ T GeneticAlgorithm<T>::get_solution ( std::vector<T> population )
         printf("generation[%lu]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
     evaluate_population(population);
-
-    //return get_best_result( population );
-    T best = population[0];
-    return best;
+    result = move( population[0] );
 
 }
 
