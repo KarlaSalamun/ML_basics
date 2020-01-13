@@ -17,7 +17,7 @@ AbstractNode::~AbstractNode()
 
 }
 
-AbstractNode *AbstractNode::get_child( int index )
+AbstractNode *AbstractNode::get_child( unsigned int index )
 {
     if( index >= this->children.size() ) {
         return NULL;
@@ -34,7 +34,7 @@ int AbstractNode::calculate_children()
 {
     subtree_num = 0;
     depth = 1;
-    for( int i=0; i<children.size(); i++ ) {
+    for( size_t i=0; i<children.size(); i++ ) {
         subtree_num += children[i]->calculate_children() + 1;
         depth = std::max( depth, children[i]->depth + 1 );
     }
@@ -80,7 +80,7 @@ void AbstractNode::set_child( AbstractNode *&child_node, AbstractNode *&new_node
 std::vector<AbstractNode *> AbstractNode::duplicate_children()
 {
     std::vector<AbstractNode *> duplicated;
-    for ( int i=0; i<children.size(); i++ ) {
+    for ( size_t i=0; i<children.size(); i++ ) {
         duplicated.push_back( children[i] );
     }
     return duplicated;
@@ -89,10 +89,11 @@ std::vector<AbstractNode *> AbstractNode::duplicate_children()
 void AbstractNode::copy_tree( AbstractNode *original, AbstractNode *& copy )
 {
     if( original != NULL ) {
-        copy = original->copy_node();
+        original->copy_node( copy );
         copy->depth = original->depth;
         for( int i=0; i<original->children_number; i++ ) {
-            AbstractNode *new_child = original->children[i]->copy_node();
+            AbstractNode *new_child;
+            original->children[i]->copy_node( new_child );
             new_child->depth = original->children[i]->depth;
             copy->children[i] = new_child;
             copy_tree( original->children[i], copy->children[i] );

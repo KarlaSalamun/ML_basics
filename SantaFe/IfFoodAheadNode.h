@@ -18,12 +18,13 @@ class IfFoodAheadNode : public AbstractNode {
             name = "If";
         }
 
-        AbstractNode *copy_node() override {
-            return new IfFoodAheadNode(*this);
+        void copy_node( AbstractNode *&copy ) override
+        {                // FIXME parametri preko reference??
+            copy = new IfFoodAheadNode(*this);
         }
 
         int action( Ant &ant ) override;
-    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
+        int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
     //    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool[32*32]> &food) override;
 };
 

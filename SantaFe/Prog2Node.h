@@ -18,12 +18,12 @@ class Prog2Node : public AbstractNode {
             name = "Prog2";
         }
 
-        AbstractNode *copy_node() override {
-            return new Prog2Node(*this);
+        void copy_node( AbstractNode *&original ) override {
+            original = new Prog2Node(*this);
         }
 
         int action( Ant &ant ) override;
-    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
+        int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) override;
     //    int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<bool[32*32]> &food) override;
 
 };

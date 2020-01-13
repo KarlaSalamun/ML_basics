@@ -10,10 +10,16 @@
 #include "../MutationOperator.h"
 #include "../SelectionOperator.h"
 #include "../Solution.h"
+#include "AbstractNode.h"
 
 using namespace std;
 
-static int compare_members(const void *m1, const void *m2);
+static int compare_members(const void *m1, const void *m2)
+{
+    const Solution<AbstractNode *>* member1 = static_cast<const Solution<AbstractNode *>*>(m1);
+    const Solution<AbstractNode *>* member2 = static_cast<const Solution<AbstractNode *>*>(m2);
+    return member1->fitness - member2->fitness;
+}
 
 template <typename T>
 class GeneticAlgorithm  {

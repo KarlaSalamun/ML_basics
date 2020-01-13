@@ -10,7 +10,7 @@ std::vector<Solution<AbstractNode *>> TreePopulation::create( int size )
     std::vector<Solution<AbstractNode *>> population(size);
     TreeConstructor *tc = new TreeConstructor();
     for( int i=0; i<size; i++ ) {
-        population[i].data = tc->construct_tree_full( max_depth );
+        tc->construct_tree_full( max_depth, population[i].data );
     }
     return population;
 }

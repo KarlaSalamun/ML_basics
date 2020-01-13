@@ -41,15 +41,18 @@ int main()
     }
     delete ant;
 
-
     TreeConstructor *tc = new TreeConstructor();
 
-    size_t population_size = 80;
+    size_t population_size = 1;
     std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
-        population[i].data = tc->construct_tree_full( 3 );
+        tc->construct_tree_full( 3, population[i].data );
     }
+
+    delete tc;
+
+    return 0;
 
     TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
     TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
@@ -57,7 +60,7 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    unsigned int generation_number = 400;
+    unsigned int generation_number = 1;
     Solution<AbstractNode *> result;
 
     GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>>
@@ -66,5 +69,6 @@ int main()
 
     delete tc;
     delete algorithm;
+    fclose( fp );
     return 0;
 }

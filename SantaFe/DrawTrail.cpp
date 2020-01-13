@@ -6,7 +6,7 @@
 #include "DrawTrail.h"
 void DrawTrail::print_trail( std::vector<std::pair<int, int>> coordinates, std::vector<std::array<bool, 32*32>> food )
 {
-    for( int i=0; i<coordinates.size(); i++ ) {
+    for( size_t i=0; i<coordinates.size(); i++ ) {
         clear();
         print_grid();
         print_food( food[0] );

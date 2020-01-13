@@ -26,13 +26,13 @@ class AbstractNode {
         virtual ~AbstractNode();
 
         void copy_tree( AbstractNode *original, AbstractNode *& copy );
-        virtual AbstractNode *copy_node() = 0;
+        virtual void copy_node( AbstractNode *&original ) = 0;
 
         virtual int action( Ant &ant ) = 0;
 
         virtual int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) = 0;
 
-    AbstractNode *get_child( int index );
+        AbstractNode *get_child( unsigned int index );
         void add_child( AbstractNode &node );
 
         int calculate_children();

@@ -10,11 +10,11 @@
 
 class TreeConstructor {
     public:
-        AbstractNode *get_random_terminal_node();
-        AbstractNode *get_random_function_node();
-        AbstractNode *get_random_any();
-        AbstractNode *construct_tree_full( int max_depth );
-        AbstractNode *construct_tree_grow( int max_depth );
+        void get_random_terminal_node( AbstractNode *&new_node );
+        void get_random_function_node( AbstractNode *&new_node );
+        void get_random_any( AbstractNode *&new_node );
+        void construct_tree_full( int max_depth, AbstractNode *&root );
+        void construct_tree_grow( int max_depth, AbstractNode *&root );
         void destroy_tree( AbstractNode *&root );
         void rehash_tree( AbstractNode *&root );
         void draw_tree( AbstractNode *&root, std::string filename );

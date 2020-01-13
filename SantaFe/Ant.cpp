@@ -136,26 +136,32 @@ bool Ant::is_food_ahead()
                 return false;
             }
             return food[ant_position.y * map_width + ant_position.x - 1];
+        default:
+            return false;
     }
 }
 
 void Ant::set_food()
 {
     FILE *fp = fopen( "../13-SantaFeAntTrail.txt" , "r" );
-
+    if (fp == NULL) {
+        puts("File nije otvoren");
+        return;
+    }
     int height, width;
 
     fscanf( fp, "%d", &height );
-    char ch = fgetc(fp);
+    fgetc(fp);
     fscanf( fp, "%d", &width );
 
     set_dimensions( width, height );
     food = new bool[map_height * map_width];
 
     for (int i=0; i<map_width; i++) {
-        ch = fgetc(fp);                                             // skip first character in row
+        fgetc(fp);                                             // skip first character in row
         for (int j=0; j<map_height; j++) {
             food[i*map_width + j] = fgetc(fp) == '1';
         }
     }
+    fclose( fp );
 }

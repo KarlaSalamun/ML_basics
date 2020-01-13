@@ -19,8 +19,9 @@ class Prog3Node : public AbstractNode {
             name = "Prog3";
         }
 
-        AbstractNode *copy_node() override {
-            return new Prog3Node(*this);
+        void copy_node( AbstractNode *&original ) override
+        {
+            original =  new Prog3Node(*this);
         }
 
     int action( Ant &ant ) override;

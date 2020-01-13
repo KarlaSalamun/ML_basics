@@ -6,7 +6,7 @@
 #include "Ant.h"
 #define FOOD_TOTAL 89
 
-double TreeFunction::get_value( Solution<AbstractNode *> solution )
+double TreeFunction::get_value( Solution<AbstractNode *> &solution )
 {
     double fitness;
     Ant *test_ant = new Ant();

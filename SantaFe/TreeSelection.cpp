@@ -25,7 +25,7 @@ void TreeSelection<T>::get_members( std::vector<T> population, std::vector<T> &m
 //    std::shuffle(population.begin(), population.end(), std::mt19937{std::random_device{}()});
 
     //std::shuffle(population.begin(), population.end(), std::default_random_engine());
-    rand_members.assign(population.begin(), population.begin() + 7 );
+    rand_members.assign(population.begin(), population.begin() + 4 );
 
     qsort( rand_members.data(), rand_members.size(), sizeof(T), compare_members );
     /*

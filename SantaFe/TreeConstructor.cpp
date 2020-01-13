@@ -16,60 +16,62 @@
 
 using std::queue;
 
-AbstractNode *TreeConstructor::get_random_terminal_node()
+// FIXME stavi parametre preko reference svugdje
+
+void TreeConstructor::get_random_terminal_node( AbstractNode *&new_node )
 {
     int random = rand() % TERM_NDOES;
     switch(random) {
         case 0:
-            return new MoveNode;
+            new_node = new MoveNode;
         case 1:
-            return new TurnLeftNode;
+            new_node = new TurnLeftNode;
         case 2:
-            return new TurnRightNode;
+            new_node = new TurnRightNode;
         default:
-            return new MoveNode;
+            new_node = new MoveNode;
     }
 }
 
-AbstractNode *TreeConstructor::get_random_function_node()
+void TreeConstructor::get_random_function_node( AbstractNode *&new_node )
 {
     int random = rand() % FUNC_NODES;
     switch(random) {
         case 0:
-            return new IfFoodAheadNode;
+            new_node =  new IfFoodAheadNode;
         case 1:
-            return new Prog2Node;
+            new_node = new Prog2Node;
         case 2:
-            return new Prog3Node;
+            new_node = new Prog3Node;
         default:
-            return new IfFoodAheadNode;
+            new_node = new IfFoodAheadNode;
     }
 }
 
-AbstractNode *TreeConstructor::get_random_any()
+void TreeConstructor::get_random_any( AbstractNode *&new_node )
 {
     int random = rand() % ( TERM_NDOES + FUNC_NODES );
     switch(random) {
         case 0:
-            return new MoveNode;
+            new_node = new MoveNode;
         case 1:
-            return new TurnRightNode;
+            new_node = new TurnRightNode;
         case 2:
-            return new TurnLeftNode;
+            new_node = new TurnLeftNode;
         case 3:
-            return new IfFoodAheadNode;
+            new_node = new IfFoodAheadNode;
         case 4:
-            return new Prog2Node;
+            new_node = new Prog2Node;
         case 5:
-            return new Prog3Node;
+            new_node = new Prog3Node;
         default:
-            return new MoveNode;
+            new_node = new MoveNode;
     }
 }
 
-AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
+void TreeConstructor::construct_tree_full( int max_depth, AbstractNode *&root )
 {
-    AbstractNode *root = get_random_function_node();
+    get_random_function_node( root );
     //int depth = rand() % max_depth + 1;
     int depth = max_depth;
     int identifier = 0;
@@ -86,7 +88,7 @@ AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
             queue.pop();
             current->depth = ref_depth;
             for( int j=0; j<current->children_number; j++ ) {
-                current->children[j] = get_random_function_node();
+                get_random_function_node( current->children[j] );
                 current->children[j]->id = identifier;
                 identifier++;
                 queue.push( current->children[j] );
@@ -101,22 +103,21 @@ AbstractNode *TreeConstructor::construct_tree_full( int max_depth )
         queue.pop();
         current->depth = ref_depth;
         for( int j=0; j<current->children_number; j++ ) {
-            current->children[j] = get_random_terminal_node();
+            get_random_terminal_node( current->children[j] );
             current->children[j]->id = identifier;
             identifier++;
             current->children[j]->depth = depth;
         }
     }
     root->depth = depth;
-    return root;
 }
 
-AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
+void TreeConstructor::construct_tree_grow( int max_depth, AbstractNode *&root )
 {
 //    int depth = rand() % max_depth + 1;
     int depth = 3;
     int identifier = 0;
-    AbstractNode *root = get_random_function_node();
+    get_random_function_node( root );
     root->id = identifier;
     identifier++;
 
@@ -134,7 +135,7 @@ AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
                 continue;
             }
             for( int j=0; j<current->children_number; j++ ) {
-                current->children[j] = get_random_any();
+                get_random_any( current->children[j] );
                 current->children[j]->id = identifier;
                 identifier++;
                 queue.push( current->children[j] );
@@ -150,14 +151,13 @@ AbstractNode *TreeConstructor::construct_tree_grow( int max_depth )
             continue;
         }
         for( int j=0; j<current->children_number; j++ ) {
-            current->children[j] = get_random_terminal_node();
+            get_random_terminal_node( current->children[j] );
             current->children[j]->id = identifier;
             identifier++;
             current->children[j]->depth = depth;
         }
     }
     root->depth = depth;
-    return root;
 }
 
 void TreeConstructor::rehash_tree( AbstractNode *&root )

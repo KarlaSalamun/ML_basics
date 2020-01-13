@@ -12,7 +12,7 @@
 class TreeFunction : public Function<Solution<AbstractNode *>> {
 public:
     virtual ~TreeFunction() {}
-    double get_value( Solution<AbstractNode *> solution );
+    double get_value( Solution<AbstractNode *> &solution );
 };
 
 

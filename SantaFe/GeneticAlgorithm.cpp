@@ -17,12 +17,6 @@
 
 using namespace std;
 
-static int compare_members(const void *m1, const void *m2)
-{
-    const Solution<AbstractNode *>* member1 = static_cast<const Solution<AbstractNode *>*>(m1);
-    const Solution<AbstractNode *>* member2 = static_cast<const Solution<AbstractNode *>*>(m2);
-    return member1->fitness - member2->fitness;
-}
 
 template <typename T>
 std::vector<T> GeneticAlgorithm<T>::get_best_members(std::vector<T> population,
@@ -106,7 +100,7 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> population, T& result )
         std::vector<T> parents;
         std::vector<T> tmp_parents(2);
         std::vector<T> children;
-
+        break;
         evaluate_population(population);
 
         population[0].data->copy_tree( population[0].data, best_members[0].data );
