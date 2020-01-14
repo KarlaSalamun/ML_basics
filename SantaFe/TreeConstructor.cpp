@@ -24,12 +24,16 @@ void TreeConstructor::get_random_terminal_node( AbstractNode *&new_node )
     switch(random) {
         case 0:
             new_node = new MoveNode;
+            break;
         case 1:
             new_node = new TurnLeftNode;
+            break;
         case 2:
             new_node = new TurnRightNode;
+            break;
         default:
             new_node = new MoveNode;
+            break;
     }
 }
 
@@ -39,12 +43,16 @@ void TreeConstructor::get_random_function_node( AbstractNode *&new_node )
     switch(random) {
         case 0:
             new_node =  new IfFoodAheadNode;
+            break;
         case 1:
             new_node = new Prog2Node;
+            break;
         case 2:
             new_node = new Prog3Node;
+            break;
         default:
             new_node = new IfFoodAheadNode;
+            break;
     }
 }
 
@@ -54,26 +62,33 @@ void TreeConstructor::get_random_any( AbstractNode *&new_node )
     switch(random) {
         case 0:
             new_node = new MoveNode;
+            break;
         case 1:
             new_node = new TurnRightNode;
+            break;
         case 2:
             new_node = new TurnLeftNode;
+            break;
         case 3:
             new_node = new IfFoodAheadNode;
+            break;
         case 4:
             new_node = new Prog2Node;
+            break;
         case 5:
             new_node = new Prog3Node;
+            break;
         default:
             new_node = new MoveNode;
+            break;
     }
 }
 
 void TreeConstructor::construct_tree_full( int max_depth, AbstractNode *&root )
 {
     get_random_function_node( root );
-    //int depth = rand() % max_depth + 1;
-    int depth = max_depth;
+    int depth = rand() % max_depth + 1;
+    //int depth = max_depth;
     int identifier = 0;
     root->id = identifier;
     identifier++;

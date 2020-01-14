@@ -29,11 +29,12 @@ class Solution {
   //      Solution<T>&operator=(const Solution<T>&) = delete;
 
         // move ctor - transfer ownership of sol.data to data
-        /*
+
         Solution( Solution&& sol) : data(move(sol.data)), fitness(fitness)
         {
+            printf("move ctor\n");
         }
-         */
+
 
         Solution& operator = ( Solution&& other )
         {

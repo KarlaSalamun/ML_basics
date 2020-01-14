@@ -12,7 +12,7 @@ template <typename  T>
 class TreeCrossover : public CrossoverOperator<T> {
     public:
         virtual ~TreeCrossover() {}
-        void get_children( std::vector<T> parents, std::vector<T> &children );
+        void get_children( std::vector<T> &parents, std::vector<T> &children );
 };
 
 #endif //SANTAFE_TREECROSSOVER_H

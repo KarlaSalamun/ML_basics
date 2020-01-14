@@ -43,16 +43,26 @@ int main()
 
     TreeConstructor *tc = new TreeConstructor();
 
-    size_t population_size = 1;
+    size_t population_size = 100;
     std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
-        tc->construct_tree_full( 3, population[i].data );
+        tc->construct_tree_full( 5, population[i].data );
     }
 
-    delete tc;
+    //delete tc;
 
-    return 0;
+    AbstractNode *kopija;
+
+    population[0].data->copy_tree( population[0].data, kopija );
+  //  tc->draw_tree( population[0].data, "original.dot" );
+   // tc->draw_tree( kopija, "kopija.dot" );
+
+    delete kopija;
+    printf( "brisem kopiju\n" );
+
+    fclose(fp);
+
 
     TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
     TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
@@ -60,15 +70,16 @@ int main()
 
     TreeFunction *test_function = new TreeFunction();
 
-    unsigned int generation_number = 1;
+    unsigned int generation_number = 100;
     Solution<AbstractNode *> result;
 
     GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>>
             ( crossover, mutation, selection, test_function, generation_number, population_size, 0 );
     algorithm->get_solution( population, result );
 
-    delete tc;
+    //tc->draw_tree(result.data, "rezultat.dot");
+
     delete algorithm;
-    fclose( fp );
+
     return 0;
 }

@@ -11,7 +11,7 @@ template <typename T>
 class SelectionOperator {
     public:
         virtual ~SelectionOperator() {}
-        virtual void get_members( std::vector<T> population, std::vector<T> &members ) = 0;
+        virtual void get_members( std::vector<T> &population, std::vector<T> &members ) = 0;
 };
 
 

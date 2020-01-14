@@ -97,6 +97,7 @@ void Ant::turn_right()
             break;
         case left:
             dir = up;
+            break;
         default:
             dir = right;
     }
@@ -122,12 +123,12 @@ bool Ant::is_food_ahead()
             }
             return food[(ant_position.y - 1) * map_width + ant_position.x];
         case right:
-            if ( ant_position.x + 1 == map_width - 1 ) {
+            if ( ant_position.x + 1 == map_width ) {
                 return false;
             }
             return food[ant_position.y * map_width + ant_position.x + 1];
         case down:
-            if ( ant_position.y + 1 == map_height - 1 ) {
+            if ( ant_position.y + 1 == map_height ) {
                 return false;
             }
             return food[(ant_position.y + 1) * map_width + ant_position.x];

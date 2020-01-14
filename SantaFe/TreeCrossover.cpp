@@ -7,9 +7,9 @@
 #include "TreePopulation.h"
 
 template <typename T>
-void TreeCrossover<T>::get_children( std::vector<T> parents, std::vector<T> &children )
+void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &children )
 {
-    children.clear();
+    //children.clear();
 
     TreeConstructor *tc = new TreeConstructor();
 
@@ -20,28 +20,39 @@ void TreeCrossover<T>::get_children( std::vector<T> parents, std::vector<T> &chi
     AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, rand_depth );
 
     if( random_tree1->children_number==0 || random_tree2->children_number==0 ) {
-        children.push_back( move( parents[0] ) );
-        children.push_back( move( parents[1] ) );
+        children[0].data->copy_tree( parents[0].data, children[0].data );
+        children[1].data->copy_tree( parents[1].data, children[1].data );
+        //children.push_back( move( parents[0] ) );
+        //children.push_back( move( parents[1] ) );
         return;
     }
 
-    if( parents[0].data->depth - random_tree1->depth + random_tree2->depth > 3 ) {
-        children.push_back( move( parents[0] ) );
-        children.push_back( move( parents[1] ) );
-        delete tc;
-       // printf("preskoceno krizanje\n");
+    if( parents[0].data->depth - random_tree1->depth + random_tree2->depth > 5 ) {
+        children[0].data->copy_tree(parents[0].data, children[0].data);
+        if (parents[1].data->depth - random_tree2->depth + random_tree1->depth > 5) {
+            children[1].data->copy_tree(parents[1].data, children[1].data);
+        }
         return;
     }
 
-    int random_index1 = rand() % random_tree1->children_number;
-    int random_index2 = rand() % random_tree2->children_number;
-    std::swap( random_tree2->children[random_index2], random_tree1->children[random_index1] );
+        //children.push_back( move( parents[0] ) );
+        //children.push_back( move( parents[1] ) );
 
-    tc->rehash_tree( parents[0].data );
-    tc->rehash_tree( parents[1].data );
+    else {
 
-    children.push_back( move( parents[0] ) );
-    children.push_back( move( parents[1] ) );
+        int random_index1 = rand() % random_tree1->children_number;
+        int random_index2 = rand() % random_tree2->children_number;
+        std::swap(random_tree2->children[random_index2], random_tree1->children[random_index1]);
+
+        tc->rehash_tree(parents[0].data);
+        tc->rehash_tree(parents[1].data);
+
+        children[0].data->copy_tree(parents[0].data, children[0].data);
+        children[1].data->copy_tree(parents[1].data, children[1].data);
+    }
+
+    //children.push_back( move( parents[0] ) );
+    //children.push_back( move( parents[1] ) );
 
     delete tc;
 }

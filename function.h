@@ -11,7 +11,7 @@ template <typename  T>
 class Function {
     public:
     virtual ~Function() {}
-        virtual double get_value( T& args ) = 0;
+        virtual double get_value( T &args ) = 0;
 };
 
 #endif //PROJEKT_FUNCTION_H

@@ -13,6 +13,7 @@ AbstractNode::~AbstractNode()
 {
     for( size_t i=0; i<children.size(); i++ ) {
         delete children[i];
+        children[i] = nullptr;
     }
 
 }
@@ -55,8 +56,15 @@ AbstractNode *AbstractNode::pick_random( AbstractNode *&node, int rand_depth )
 
 void AbstractNode::replace_random( AbstractNode *&new_node )
 {
+    int rand_depth;
     int random_node = rand() % children.size();
-    AbstractNode *random = pick_random( children[random_node], children[random_node]->depth );
+    if( children[random_node]->depth == 0 ) {
+        rand_depth = 0;
+    }
+    else {
+        rand_depth = rand() % children[random_node]->depth;
+    }
+    AbstractNode *random = pick_random( children[random_node], rand_depth );
 
     if( random->is_terminal ) {
         return;

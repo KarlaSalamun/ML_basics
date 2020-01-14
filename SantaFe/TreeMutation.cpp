@@ -33,16 +33,18 @@ void TreeMutation<T>::mutate_solution ( T &solution )
      */
     TreeConstructor *tc = new TreeConstructor();
     //AbstractNode *data = solution.data;
-
+/*
     if( rand() % 2 ) {
-        tc->construct_tree_grow(rand() % MAX_SUBTREE_DEPTH, new_node );
+        tc->construct_tree_grow(rand() % MAX_SUBTREE_DEPTH + 1, new_node );
         solution.data->replace_random( new_node );
     }
     else {
-        tc->construct_tree_full(rand() % MAX_SUBTREE_DEPTH, new_node );
+        tc->construct_tree_full(rand() % MAX_SUBTREE_DEPTH + 1, new_node );
         solution.data->replace_random( new_node );
     }
-
+*/
+    tc->construct_tree_grow(rand() % MAX_SUBTREE_DEPTH + 1, new_node );
+    solution.data->replace_random( new_node );
 /*
     AbstractNode *new_node = tc->construct_tree_grow( rand() % MAX_SUBTREE_DEPTH );
     solution.data->replace_random( new_node );

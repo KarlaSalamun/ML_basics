@@ -19,7 +19,7 @@ class IfFoodAheadNode : public AbstractNode {
         }
 
         void copy_node( AbstractNode *&copy ) override
-        {                // FIXME parametri preko reference??
+        {
             copy = new IfFoodAheadNode(*this);
         }
 

@@ -56,7 +56,7 @@ template <typename T>
 }
 
 template <typename T>
-void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T> members )
+void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T>& members )
 {
     size_t old_size = population.size();
     population.resize( old_size + 2 );
@@ -93,21 +93,22 @@ T GeneticAlgorithm<T>::get_best_result( std::vector<T> population )
 }
 
 template <typename T>
-void GeneticAlgorithm<T>::get_solution ( std::vector<T> population, T& result )
+void GeneticAlgorithm<T>::get_solution ( std::vector<T> &population, T& result )
 {
+
     for ( size_t i=0; i<generation_number; i++ ) {
         std::vector<T> best_members(2);
-        std::vector<T> parents;
+        std::vector<T> parents(2);
         std::vector<T> tmp_parents(2);
-        std::vector<T> children;
-        break;
+        std::vector<T> children(2);
+        std::vector<T> new_population;
+
         evaluate_population(population);
 
         population[0].data->copy_tree( population[0].data, best_members[0].data );
         population[1].data->copy_tree( population[1].data, best_members[1].data );
         evaluate_population( best_members );
 
-        std::vector<T> new_population;
         add_members( new_population, best_members );
         evaluate_population( new_population );
 
@@ -130,8 +131,12 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> population, T& result )
         population.clear();
 
         for ( size_t j=0; j<new_population.size(); j++ ) {
-            population.push_back( move( new_population[j] ) );
+
+            population.push_back( new_population[j]);
+         //   population[j].data->copy_tree( new_population[j].data, population[j].data );
+         //   population[j].fitness = new_population[j].fitness;
         }
+
 
         //population = new_population;
 /*
@@ -140,7 +145,7 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> population, T& result )
             break;
         }
 */
-        evaluate_population( population );
+       // evaluate_population( population );
 
         printf("generation[%lu]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
