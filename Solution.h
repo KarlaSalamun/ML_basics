@@ -30,8 +30,9 @@ class Solution {
 
         // move ctor - transfer ownership of sol.data to data
 
-        Solution( Solution&& sol) : data(move(sol.data)), fitness(fitness)
+        Solution( Solution&& sol) : data(sol.data), fitness(sol.fitness)
         {
+            sol.data = nullptr;
             printf("move ctor\n");
         }
 

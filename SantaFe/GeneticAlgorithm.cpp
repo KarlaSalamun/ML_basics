@@ -120,7 +120,15 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> &population, T& result )
             parents[1].data->copy_tree( parents[1].data, tmp_parents[1].data );
             crossover->get_children( tmp_parents, children );
             //children = parents;
+            if (children[1].data == nullptr) {
+                cout << "NULL5" << endl;
+            }
             mutation->mutate_solution( children[0] );
+            if (children[1].data == nullptr) {
+                cout << "NULL6" << endl;
+            } else {
+                cout << "MUTACIJA" << endl;
+            }
             mutation->mutate_solution( children[1] );
             assert( children[0].data->depth <= 5 );
             assert( children[1].data->depth <= 5 );
@@ -132,7 +140,7 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> &population, T& result )
 
         for ( size_t j=0; j<new_population.size(); j++ ) {
 
-            population.push_back( new_population[j]);
+            population.push_back(move(new_population[j]));
          //   population[j].data->copy_tree( new_population[j].data, population[j].data );
          //   population[j].fitness = new_population[j].fitness;
         }

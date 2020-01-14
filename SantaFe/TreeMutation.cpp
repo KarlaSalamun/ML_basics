@@ -6,6 +6,7 @@
 #include <queue>
 #include "TreeMutation.h"
 #include "TreeConstructor.h"
+#include <iostream>
 
 #define MAX_SUBTREE_DEPTH 3
 
@@ -43,6 +44,9 @@ void TreeMutation<T>::mutate_solution ( T &solution )
         solution.data->replace_random( new_node );
     }
 */
+    if (solution.data == nullptr) {
+        std::cout << "NULL8" << endl;
+    }
     tc->construct_tree_grow(rand() % MAX_SUBTREE_DEPTH + 1, new_node );
     solution.data->replace_random( new_node );
 /*

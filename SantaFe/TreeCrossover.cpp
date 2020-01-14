@@ -2,6 +2,7 @@
 // Created by karla on 12. 12. 2019..
 //
 #include <cstdlib>
+#include <iostream>
 #include <algorithm>
 #include "TreeCrossover.h"
 #include "TreePopulation.h"
@@ -11,6 +12,7 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
 {
     //children.clear();
 
+    // multiple return statements, TreeConstructor is not always deleted
     TreeConstructor *tc = new TreeConstructor();
 
     int rand_depth = rand() % parents[0].data->depth;
@@ -24,6 +26,10 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
         children[1].data->copy_tree( parents[1].data, children[1].data );
         //children.push_back( move( parents[0] ) );
         //children.push_back( move( parents[1] ) );
+
+        if (children[1].data == nullptr) {
+            std::cout << "NULL1" << std::endl;
+        }
         return;
     }
 
@@ -31,6 +37,12 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
         children[0].data->copy_tree(parents[0].data, children[0].data);
         if (parents[1].data->depth - random_tree2->depth + random_tree1->depth > 5) {
             children[1].data->copy_tree(parents[1].data, children[1].data);
+        } else {
+            // quick fix (bug) if above was not executing
+            children[1].data->copy_tree(parents[0].data, children[1].data);
+        }
+        if (children[1].data == nullptr) {
+            std::cout << "NULL2" << std::endl;
         }
         return;
     }
@@ -50,6 +62,10 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
         children[0].data->copy_tree(parents[0].data, children[0].data);
         children[1].data->copy_tree(parents[1].data, children[1].data);
     }
+    if (children[1].data == nullptr) {
+        std::cout << "NULL3" << std::endl;
+    }
+
 
     //children.push_back( move( parents[0] ) );
     //children.push_back( move( parents[1] ) );
