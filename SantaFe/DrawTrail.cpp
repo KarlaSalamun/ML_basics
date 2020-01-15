@@ -10,8 +10,8 @@ void DrawTrail::print_trail( std::vector<std::pair<int, int>> coordinates, std::
     for (size_t i = 0; i < coordinates.size(); i++) {
         clear();
         print_grid();
-        print_food(food[0]);
-        mvprintw(2 * std::get<0>(coordinates[i]), 2 * std::get<1>(coordinates[i]), "m");
+        print_food(food[i]);
+        mvprintw(2 * std::get<1>(coordinates[i]), 2 * std::get<0>(coordinates[i]), "m");
         refresh();
         usleep(2e5);
     }

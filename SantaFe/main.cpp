@@ -13,7 +13,7 @@
 #include "TreeMutation.cpp"
 #include "TreeCrossover.cpp"
 
-//#define GUI 1
+#define GUI 0
 
 int main()
 {
@@ -77,12 +77,13 @@ int main()
     std::vector<std::pair<int, int>> coordinates;
     vector<std::array<bool, 32 * 32>> food;
 
-    while( ant->actions_cnt < 600 ) {
+    while( ant->food_cnt < 89 ) {
         result.data->action( *ant, coordinates, food );
     }
 
     DrawTrail *dt = new DrawTrail();
     dt->print_trail( coordinates, food );
+    delete dt;
 #endif
 
     return 0;
