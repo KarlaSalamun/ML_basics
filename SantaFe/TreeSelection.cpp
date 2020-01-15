@@ -37,7 +37,10 @@ void TreeSelection<T>::get_members( std::vector<T> &population, std::vector<T> &
  //   members.push_back( move( rand_members[0] ) );
 //    members.push_back( move( rand_members[1] ) );
 
+    members[0] = move( rand_members[0] );
+    members[1] = move( rand_members[1] );;
+/*
     members[0].data->copy_tree( rand_members[0].data, members[0].data );
     members[1].data->copy_tree( rand_members[1].data, members[1].data );
-
+*/
 }

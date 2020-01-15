@@ -6,6 +6,7 @@
 #include <cstring>
 #include <string>
 #include <queue>
+#include <cassert>
 #include "TreeConstructor.h"
 #include "MoveNode.h"
 #include "TurnLeftNode.h"

@@ -33,13 +33,13 @@ class Solution {
         Solution( Solution&& sol) : data(sol.data), fitness(sol.fitness)
         {
             sol.data = nullptr;
-            printf("move ctor\n");
+        //    printf("move ctor\n");
         }
 
 
         Solution& operator = ( Solution&& other )
         {
-            printf("move assignment\n");
+           // printf("move assignment\n");
             if( &other == this ) {
                 return *this;
             }

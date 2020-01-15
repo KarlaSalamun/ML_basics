@@ -71,10 +71,14 @@ void AbstractNode::replace_random( AbstractNode *&new_node )
     }
 
     int random_index = rand() % random->children_number;
-    random->children[random_index] = new_node;
+
+    std::swap( random->children[random_index], new_node );
     random->depth = new_node->depth;
+
+    //random->children[random_index] = std::move( new_node );
+
     this->depth = ( this->depth > new_node->depth + this->depth - random->depth ) ?
-            this->depth : ( new_node->depth + this->depth - random->depth );
+                  this->depth : ( new_node->depth + this->depth - random->depth );
 
 }
 

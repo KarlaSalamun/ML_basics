@@ -39,30 +39,18 @@ int main()
             ant->food[i*ant->map_width + j] = fgetc(fp) == '1';
         }
     }
-    delete ant;
+    //delete ant;
 
     TreeConstructor *tc = new TreeConstructor();
 
-    size_t population_size = 100;
+    size_t population_size = 300;
     std::vector<Solution<AbstractNode *>> population(population_size);
 
     for( size_t i=0; i<population_size; i++ ) {
         tc->construct_tree_full( 5, population[i].data );
     }
 
-    //delete tc;
-
-    AbstractNode *kopija;
-
-    population[0].data->copy_tree( population[0].data, kopija );
-  //  tc->draw_tree( population[0].data, "original.dot" );
-   // tc->draw_tree( kopija, "kopija.dot" );
-
-    delete kopija;
-    printf( "brisem kopiju\n" );
-
     fclose(fp);
-
 
     TreeCrossover<Solution<AbstractNode *>> *crossover = new TreeCrossover<Solution<AbstractNode *>>();
     TreeSelection<Solution<AbstractNode *>> *selection = new TreeSelection<Solution<AbstractNode *>>();
@@ -75,11 +63,26 @@ int main()
 
     GeneticAlgorithm<Solution<AbstractNode *>> *algorithm = new GeneticAlgorithm<Solution<AbstractNode *>>
             ( crossover, mutation, selection, test_function, generation_number, population_size, 0 );
+
     algorithm->get_solution( population, result );
 
-    //tc->draw_tree(result.data, "rezultat.dot");
+    tc->draw_tree(result.data, "rezultat.dot");
 
     delete algorithm;
+    delete tc;
+
+#ifdef GUI
+    std::vector<std::pair<int, int>> coordinates;
+    vector<std::array<bool, 32 * 32>> food;
+
+    while( ant->actions_cnt < 600 ) {
+        result.data->action( *ant, coordinates, food );
+    }
+
+    DrawTrail *dt = new DrawTrail();
+    dt->print_trail( coordinates, food );
+#endif
 
     return 0;
 }
+
