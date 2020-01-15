@@ -66,6 +66,8 @@ int main()
 
     algorithm->get_solution( population, result );
 
+    tc->check_tree( result.data, result.data->depth );
+
     tc->draw_tree(result.data, "rezultat.dot");
 
     delete algorithm;

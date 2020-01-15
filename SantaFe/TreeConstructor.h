@@ -18,6 +18,7 @@ class TreeConstructor {
         void destroy_tree( AbstractNode *&root );
         void rehash_tree( AbstractNode *&root );
         void draw_tree( AbstractNode *&root, std::string filename );
+        void check_tree(AbstractNode *&root, int depth);
 };
 
 

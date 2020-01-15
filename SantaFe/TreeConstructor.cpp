@@ -182,51 +182,43 @@ void TreeConstructor::rehash_tree( AbstractNode *&root )
     queue.push( root );
 
     int identifier = 0;
-    root->id = identifier;
-    identifier++;
-    int ref_depth = 1;
-    while( ref_depth < root->depth ) {
-        int size = queue.size();
-        for( int i=0; i<size; i++ ) {
-            AbstractNode *current = queue.front();
-            queue.pop();
-            for( int j=0; j<current->children_number; j++ ) {
-                current->children[j]->id = identifier;
-                identifier++;
-                queue.push( current->children[j] );
-            }
+
+    while( !queue.empty() ) {
+        AbstractNode *current = queue.front();
+        queue.pop();
+        current->id = identifier++;
+
+        for( int i=0; i<current->children_number; i++ ) {
+            queue.push( current->children[i] );
         }
-        ref_depth++;
     }
 }
 
-
+// TODO napravi BPS pomocnu funkciju koja radi obilazak stabla
 void TreeConstructor::draw_tree( AbstractNode *&root, std::string filename )
 {
+    std::queue<AbstractNode *> queue;
     std::string tmp = "../graphs/";
 
     //strcat( tmp, filename );
     FILE *fp = fopen( (tmp+filename).c_str(), "w+");
     fprintf( fp, "digraph D {\n\n" );
 
-    std::queue<AbstractNode *> queue;
-    queue.push( root );
 
     fprintf( fp, "\t%d [label=\"%s\"]\n", root->id, root->name );
-    int ref_depth = 1;
-    while( ref_depth < root->depth ) {
-        int size = queue.size();
-        for( int i=0; i<size; i++ ) {
-            AbstractNode *current = queue.front();
-            queue.pop();
-            for( int j=0; j<current->children_number; j++ ) {
-                fprintf( fp, "\t%d [label=\"%s\"]\n", current->children[j]->id, current->children[j]->name );
-                fprintf( fp, "\t%d -> %d;\n", current->id, current->children[j]->id );
-                queue.push( current->children[j] );
-            }
+
+    queue.push( root );
+    while( !queue.empty() ) {
+        AbstractNode *current = queue.front();
+        queue.pop();
+
+        for (int i = 0; i < current->children_number; i++) {
+            fprintf(fp, "\t%d [label=\"%s\"]\n", current->children[i]->id, current->children[i]->name);
+            fprintf(fp, "\t%d -> %d;\n", current->id, current->children[i]->id);
+            queue.push(current->children[i]);
         }
-        ref_depth++;
     }
+
     fprintf( fp, "}\n" );
     fclose( fp );
 }
@@ -258,5 +250,22 @@ void TreeConstructor::destroy_tree(AbstractNode *&root)
 
     delete root;
      */
+}
+
+void TreeConstructor::check_tree(AbstractNode *&root, int depth)
+{
+    AbstractNode *current;
+
+//    assert( depth == root->depth );
+    depth = root->depth;
+
+    current = root;
+    if( current != nullptr ) {
+        for (int i = 0; i < current->children.size(); i++) {
+            if (current->children[i] != nullptr) {
+                check_tree(current->children[i], depth - 1);
+            }
+        }
+    }
 }
 
