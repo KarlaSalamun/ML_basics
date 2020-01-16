@@ -49,6 +49,7 @@ void TreeMutation<T>::mutate_solution ( T &solution )
     }
 
     tc->construct_tree_grow( rand() % MAX_SUBTREE_DEPTH + 1, new_node );
+
     solution.data->replace_random( new_node );
 
     delete new_node;

@@ -11,8 +11,7 @@ template <typename T>
 void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &children )
 {
     //children.clear();
-
-    // multiple return statements, TreeConstructor is not always deleted
+    
     TreeConstructor *tc = new TreeConstructor();
 
     int rand_depth = rand() % parents[0].data->depth;

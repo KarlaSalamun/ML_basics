@@ -38,13 +38,13 @@ std::vector<T> GeneticAlgorithm<T>::get_best_members(std::vector<T> population,
 }
 
 template <typename T>
- void GeneticAlgorithm<T>::evaluate_population(std::vector<T> &population)
+ void GeneticAlgorithm<T>::evaluate_population(std::vector<T> &population, int size )
 {
-    for ( size_t i=0; i<population.size(); i++ ) {
+    for ( size_t i=0; i<size; i++ ) {
         test_function->get_value( population[i] );
     }
 
-    qsort( population.data(), population.size(), sizeof(T), compare_members );
+    qsort( population.data(), size, sizeof(T), compare_members );
 
     /*
     std::sort(population.begin(), population.end(),
@@ -55,20 +55,13 @@ template <typename T>
 }
 
 template <typename T>
-void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T>& members )
+void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T>& members, int size )
 {
-   // population.resize( old_size + 2 );
-   // for( size_t i=0; i<members.size(); i++ ) {
-       // members[i].data->copy_tree( members[i].data, population[old_size+i].data );
 
-  //  }
     for( int i=0; i<members.size(); i++ ) {
-        population.push_back( move( members[i] ) );
+        population[size + i] = move( members[i] );
         delete members[i].data;
     }
-
-   // population.push_back( tmp_population[0] );
-   // population.push_back( tmp_population[1] );
 }
 
 template <typename T>
@@ -104,54 +97,49 @@ void GeneticAlgorithm<T>::get_solution ( std::vector<T> &population, T& result )
         std::vector<T> best_members(2);
         std::vector<T> parents(2);
         std::vector<T> children(2);
-        std::vector<T> new_population;
+        std::vector<T> new_population( population.size() );
+        int new_size = 0;
 
-        evaluate_population(population);
+        evaluate_population(population, population.size() );
 
+        best_members[0] = population[0];
+        best_members[1] = population[1];
+/*
         population[0].data->copy_tree( population[0].data, best_members[0].data );
         population[1].data->copy_tree( population[1].data, best_members[1].data );
 
         best_members[0].fitness = population[0].fitness;
         best_members[1].fitness = population[1].fitness;
+*/
+        add_members( new_population, best_members, new_size );
+        new_size += best_members.size();
 
-        //evaluate_population( best_members );
-
-        add_members( new_population, best_members );
-
-        evaluate_population( new_population );
+        evaluate_population( new_population, new_size );
 
         // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
-        while( new_population.size() < population_size ) {
+        while( new_size < population_size ) {
 
             selection->get_members( population, parents );
-            crossover->get_children( parents, children );
-            //children = parents;
-            if (children[1].data == nullptr) {
-                cout << "NULL5" << endl;
-            }
-            mutation->mutate_solution( children[0] );
-            if (children[1].data == nullptr) {
-                cout << "NULL6" << endl;
-            } else {
-         //       cout << "MUTACIJA" << endl;
-            }
-            mutation->mutate_solution( children[1] );
-            assert( children[0].data->depth <= 5 );
-            assert( children[1].data->depth <= 5 );
-            evaluate_population( children );
-            add_members(new_population, children );
 
+            crossover->get_children( parents, children );
+            mutation->mutate_solution( children[0] );
+            mutation->mutate_solution( children[1] );
+            //assert( children[0].data->depth <= 5 );
+            //assert( children[1].data->depth <= 5 );
+
+            add_members(new_population, children, new_size );
+            new_size += children.size();
         }
 
-        population.clear();
-
+        //population.clear();
         for ( size_t j=0; j<new_population.size(); j++ ) {
-            population.push_back(move(new_population[j]));
+            //population.push_back(move(new_population[j]));
+            population[j] = move( new_population[j] );
             delete new_population[j].data;
         }
         printf("generation[%lu]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
-    evaluate_population(population);
+    evaluate_population(population, population.size() );
     result = move( population[0] );
 }
 

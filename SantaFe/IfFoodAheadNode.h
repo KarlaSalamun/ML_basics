@@ -15,7 +15,7 @@ class IfFoodAheadNode : public AbstractNode {
             is_terminal = false;
             children_number = 2;
             children.assign( children_number, nullptr );
-            name = "If";
+            name = "IfFood";
         }
 
         void copy_node( AbstractNode *&copy ) override

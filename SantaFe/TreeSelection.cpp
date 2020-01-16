@@ -19,16 +19,20 @@ std::vector<Solution<AbstractNode *>> TreeSelection::get_members(std::vector<Sol
 template <typename T>
 void TreeSelection<T>::get_members( std::vector<T> &population, std::vector<T> &members )
 {
-    std::vector<T> rand_members;
-   // members.clear();
+    std::vector<T> rand_members(4);
 
 //    std::shuffle(population.begin(), population.end(), std::mt19937{std::random_device{}()});
 
     //std::shuffle(population.begin(), population.end(), std::default_random_engine());
-    rand_members.assign(population.begin(), population.begin() + 4 );
+
+
+    for( int i=0; i<rand_members.size(); i++ ) {
+        rand_members[i] = population[i];
+        rand_members[i].fitness = population[i].fitness;
+    }
 
     qsort( rand_members.data(), rand_members.size(), sizeof(T), compare_members );
-    /*
+   /*
     std::sort(rand_members.begin(), rand_members.end(),
               [](const T& a, const T& b) {
                   return (a.fitness <= b.fitness);

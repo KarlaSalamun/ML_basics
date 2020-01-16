@@ -14,7 +14,7 @@ class MoveNode : public AbstractNode {
         {
             is_terminal = true;
             children_number = 0;
-            name = "M";
+            name = "Move";
         }
 
         void copy_node( AbstractNode *&original ) override

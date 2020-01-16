@@ -33,13 +33,13 @@ class Solution {
         Solution( Solution&& sol) : data(sol.data), fitness(sol.fitness)
         {
             sol.data = nullptr;
-        //    printf("move ctor\n");
+            printf("move ctor\n");
         }
 
 
         Solution& operator = ( Solution&& other )
         {
-           // printf("move assignment\n");
+           // printf("calling move assignment on %s\n", other.data->name );
             if( &other == this ) {
                 return *this;
             }
@@ -53,6 +53,7 @@ class Solution {
 
         Solution( const Solution& obj )
         {
+            printf( "calling copy ctor on %s\n", obj.data->name );
             //data = new T;
             //*data = *obj.data;
             //printf("copy ctor\n")
@@ -65,6 +66,8 @@ class Solution {
 
         Solution<T>&operator = ( const Solution<T>& obj )
         {
+
+
             if ( &obj == this ) {
                 return *this;
             }
