@@ -25,7 +25,6 @@ class AbstractNode {
         AbstractNode();
         virtual ~AbstractNode();
 
-        void copy_tree( AbstractNode *original, AbstractNode *& copy );
         virtual void copy_node( AbstractNode *&original ) = 0;
 
         virtual int action( Ant &ant ) = 0;
@@ -33,15 +32,11 @@ class AbstractNode {
         virtual int action(Ant &ant, std::vector<std::pair<int, int>> &coordinates, std::vector<std::array<bool, 32*32>> &food) = 0;
 
         AbstractNode *get_child( unsigned int index );
-        void add_child( AbstractNode &node );
 
         int calculate_children();
 
         AbstractNode *pick_random( AbstractNode *&node, int rand_depth );
         void replace_random(AbstractNode *&new_node );
-
-        void set_child( AbstractNode *&child_node, AbstractNode *&new_node );
-        std::vector<AbstractNode *> duplicate_children();
 };
 
 

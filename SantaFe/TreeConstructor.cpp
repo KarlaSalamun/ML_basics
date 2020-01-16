@@ -194,7 +194,7 @@ void TreeConstructor::rehash_tree( AbstractNode *&root )
     }
 }
 
-// TODO napravi BPS pomocnu funkciju koja radi obilazak stabla
+// TODO napravi BFS pomocnu funkciju koja radi obilazak stabla
 void TreeConstructor::draw_tree( AbstractNode *&root, std::string filename )
 {
     std::queue<AbstractNode *> queue;

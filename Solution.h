@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cstdio>
+#include <queue>
 #include "function.h"
 
 using namespace std;
@@ -33,7 +34,7 @@ class Solution {
         Solution( Solution&& sol) : data(sol.data), fitness(sol.fitness)
         {
             sol.data = nullptr;
-            printf("move ctor\n");
+//            printf("move ctor\n");
         }
 
 
@@ -53,7 +54,7 @@ class Solution {
 
         Solution( const Solution& obj )
         {
-            printf( "calling copy ctor on %s\n", obj.data->name );
+//            printf( "calling copy ctor on %s\n", obj.data->name );
             //data = new T;
             //*data = *obj.data;
             //printf("copy ctor\n")

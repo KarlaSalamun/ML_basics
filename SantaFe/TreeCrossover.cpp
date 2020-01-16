@@ -8,51 +8,44 @@
 #include "TreePopulation.h"
 
 template <typename T>
-void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &children )
-{
-    //children.clear();
-    
+void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &children ) {
+
     TreeConstructor *tc = new TreeConstructor();
 
     int rand_depth = rand() % parents[0].data->depth;
-    AbstractNode *random_tree1 = parents[0].data->pick_random( parents[0].data, rand_depth );
+    AbstractNode *random_tree1 = parents[0].data->pick_random(parents[0].data, rand_depth);
 
     rand_depth = rand() % parents[1].data->depth;
-    AbstractNode *random_tree2 = parents[1].data->pick_random( parents[1].data, rand_depth );
+    AbstractNode *random_tree2 = parents[1].data->pick_random(parents[1].data, rand_depth);
 
-    if( random_tree1->children_number==0 || random_tree2->children_number==0 ) {
-        //children[0].data->copy_tree( parents[0].data, children[0].data );
-        //children[1].data->copy_tree( parents[1].data, children[1].data );
-        //children.push_back( move( parents[0] ) );
-        //children.push_back( move( parents[1] ) );
+    if ( random_tree1->children_number == 0 || random_tree2->children_number == 0 ) {
 
-        children[0] = move( parents[0] );
-        children[1] = move( parents[1] );
+        children[0] = move(parents[0]);
+        children[1] = move(parents[1]);
 
         if (children[1].data == nullptr) {
             std::cout << "NULL1" << std::endl;
         }
+        delete tc;
         return;
     }
 
+
     if( parents[0].data->depth - random_tree1->depth + random_tree2->depth > 5 ) {
-        children[0].data->copy_tree(parents[0].data, children[0].data);
+
+        children[0] = parents[0];
+
         if (parents[1].data->depth - random_tree2->depth + random_tree1->depth > 5) {
-            //children[1].data->copy_tree(parents[1].data, children[1].data);
             children[1]= move( parents[1] );
         } else {
-            // quick fix (bug) if above was not executing
-            //children[1].data->copy_tree(parents[0].data, children[1].data);
             children[1] = move( parents[0] );
         }
         if (children[1].data == nullptr) {
             std::cout << "NULL2" << std::endl;
         }
+        delete tc;
         return;
     }
-
-        //children.push_back( move( parents[0] ) );
-        //children.push_back( move( parents[1] ) );
 
     else {
 
@@ -63,9 +56,6 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
         tc->rehash_tree(parents[0].data);
         tc->rehash_tree(parents[1].data);
 
-        //children[0].data->copy_tree(parents[0].data, children[0].data);
-        //children[1].data->copy_tree(parents[1].data, children[1].data);
-
         children[0] = move( parents[0] );
         children[1] = move( parents[1] );
 
@@ -73,10 +63,6 @@ void TreeCrossover<T>::get_children( std::vector<T> &parents, std::vector<T> &ch
     if (children[1].data == nullptr) {
         std::cout << "NULL3" << std::endl;
     }
-
-
-    //children.push_back( move( parents[0] ) );
-    //children.push_back( move( parents[1] ) );
 
     delete tc;
 }

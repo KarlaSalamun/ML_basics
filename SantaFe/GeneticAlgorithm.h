@@ -50,11 +50,8 @@ class GeneticAlgorithm  {
             this->selection = selection;
         }
 private:
-        std::vector<T> get_best_members ( std::vector<T> population, Function<T> *test_function );
-        void evaluate_population ( std::vector<T> &population, int size );
-        void add_members( std::vector<T> &population,std::vector<T> &members, int size );
-        std::vector<T> create_population();
-        T get_best_result( std::vector<T> population );
+        void evaluate_population ( std::vector<T> &population );
+        void add_members( std::vector<T> &population,std::vector<T> &members );
         //int compare_members( const void *m1, const void *m2 );
         CrossoverOperator<T> *crossover;
         MutationOperator<T> *mutation = nullptr;

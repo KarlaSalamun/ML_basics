@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cstdio>
+#include <queue>
 #include "AbstractNode.h"
 
 AbstractNode::AbstractNode()
@@ -15,7 +16,6 @@ AbstractNode::~AbstractNode()
         delete children[i];
         children[i] = nullptr;
     }
-
 }
 
 AbstractNode *AbstractNode::get_child( unsigned int index )
@@ -24,11 +24,6 @@ AbstractNode *AbstractNode::get_child( unsigned int index )
         return NULL;
     }
      return this->children[index];
-}
-
-void AbstractNode::add_child( AbstractNode &node )
-{
-    children.push_back( &node );
 }
 
 int AbstractNode::calculate_children()
@@ -75,40 +70,8 @@ void AbstractNode::replace_random( AbstractNode *&new_node )
     std::swap( random->children[random_index], new_node );
     random->depth = new_node->depth;
 
-    //random->children[random_index] = std::move( new_node );
-
     this->depth = ( this->depth > new_node->depth + this->depth - random->depth ) ?
                   this->depth : ( new_node->depth + this->depth - random->depth );
 
 }
 
-void AbstractNode::set_child( AbstractNode *&child_node, AbstractNode *&new_node )
-{
-//    child_node = new_node;
-    std::swap( child_node, new_node );
-    //children[i] = new_node;
-}
-
-std::vector<AbstractNode *> AbstractNode::duplicate_children()
-{
-    std::vector<AbstractNode *> duplicated;
-    for ( size_t i=0; i<children.size(); i++ ) {
-        duplicated.push_back( children[i] );
-    }
-    return duplicated;
-}
-
-void AbstractNode::copy_tree( AbstractNode *original, AbstractNode *& copy )
-{
-    if( original != NULL ) {
-        original->copy_node( copy );
-        copy->depth = original->depth;
-        for( int i=0; i<original->children_number; i++ ) {
-            AbstractNode *new_child;
-            original->children[i]->copy_node( new_child );
-            new_child->depth = original->children[i]->depth;
-            copy->children[i] = new_child;
-            copy_tree( original->children[i], copy->children[i] );
-        }
-    }
-}
