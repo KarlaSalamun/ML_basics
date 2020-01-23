@@ -23,9 +23,7 @@ int main()
     std::vector<double> w(2, 1);
     std::vector<double> solution(2, 0);
 
-    //  TODO makni ovaj path i stavi relativni
-
-    FILE *fp = fopen("/home/karla/faks/9. semestar/projekt/simulated_annealing/tf_file.txt", "r");
+    FILE *fp = fopen("../tf_file.txt", "r");
     if ( fp == NULL ) {
         exit(1);
     }

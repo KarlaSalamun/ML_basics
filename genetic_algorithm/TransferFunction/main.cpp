@@ -66,9 +66,7 @@ int main()
     std::vector<std::vector<double>> x( 20, std::vector<double>(6, 0));
     std::vector<double> y(20, 0);
 
-    // TODO makni ovaj path i stavi relativni
-    FILE *fp_in = fopen("/home/karla/faks/9. semestar/projekt/simulated_annealing/tf_file.txt", "r");
-    //FILE *fp_in = fopen("../../simulated_annealing/tf_file.txt", "r");
+    FILE *fp_in = fopen("../tf_file.txt", "r");
     for(int i=0; ; i++) {
         if (fscanf(fp_in, "[%lf, %lf, %lf, %lf, %lf, %lf]\n", &x[i][0], &x[i][1], &x[i][2], &x[i][3], &x[i][4],
                    &y[i]) != 6) {
