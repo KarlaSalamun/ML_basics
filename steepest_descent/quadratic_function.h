@@ -5,12 +5,14 @@
 #ifndef PROJEKT_QUADRATIC_FUNCTION_H
 #define PROJEKT_QUADRATIC_FUNCTION_H
 
-#include "../function.h"
+#include "../NumericFunction.h"
 
-class QuadraticFunction : public Function {
+class QuadraticFunction : public NumericFunction {
     public:
-        double get_value( std::vector<double> args );
+        double get_value( std::vector<double> &args );
         std::vector<double> get_gradient( std::vector<double> args);
+        std::vector<double> get_gradient_approximation(std::vector<double> args, double delta);
+        double compute_derivative( std::vector<double> point, std::vector<double> epsilon, double epsilon_scalar );
 };
 
 

@@ -5,12 +5,13 @@
 #ifndef GENETIC_ALGORITHM_CROSSOVEROPERATOR_H
 #define GENETIC_ALGORITHM_CROSSOVEROPERATOR_H
 #include <vector>
-#include "../Solution.h"
+#include "Solution.h"
 
 template <typename T>
 class CrossoverOperator {
     public:
-        virtual std::vector<T> get_children(std::vector<T> &parents ) = 0;
+        virtual ~CrossoverOperator() {}
+        virtual void get_children( std::vector<T> &parents, std::vector<T> &children ) = 0;
 };
 
 #endif //GENETIC_ALGORITHM_CROSSOVEROPERATOR_H

@@ -14,7 +14,7 @@ class SimulatedAnnealing : public OptimizationFcn {
         SimulatedAnnealing(CoolingScheme *scheme, double prob, double dec) :
             scheme(scheme), init_prob(prob), prob_decrease(dec) {}
         SimulatedAnnealing(CoolingScheme *scheme ) : SimulatedAnnealing(scheme, 0.5, 0.5) {}
-        std::vector<double> get_solution( std::vector<double> solution, Function *test_function );
+        std::vector<double> get_solution( std::vector<double> solution, NumericFunction *test_function );
     private:
         double compute_probability( int step );
         double init_prob;

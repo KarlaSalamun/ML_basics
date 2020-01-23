@@ -3,164 +3,73 @@
 //
 
 #include <cstdlib>
-#include <cmath>
-#include <cassert>
 #include <iostream>
-#include <algorithm>
+#include <cstdio>
 #include "GeneticAlgorithm.h"
-#include "UniformMutation.h"
+#include "Solution.h"
+#include "Solution.cpp"
 
 using namespace std;
 
-GeneticAlgorithm::~GeneticAlgorithm()
+template <typename T>
+ void GeneticAlgorithm<T>::evaluate_population(std::vector<T> &population )
 {
-    delete crossover;
-    delete mutation;
-}
-
-void GeneticAlgorithm::set_crossover( CrossoverOperator *crossover )
-{
-    // TODO: ako se napravi smart pointer, ovdje se radi move
-    delete this->crossover;
-    this->crossover = crossover;
-}
-
-void GeneticAlgorithm::set_mutation( MutationOperator *mutation )
-{
-    // ako je mutation smart pointer ovo je visak...
-    delete this->mutation;
-    this->mutation = mutation;
-}
-
-void GeneticAlgorithm::set_selection(SelectionOperator *selection){
-    delete this->selection;
-    this->selection = selection;
-}
-
-
-std::vector<Solution> GeneticAlgorithm::get_best_members(std::vector<Solution> population,
-        Function *test_function )
-{
-    std::vector<Solution> best_members;
-    std::sort(population.begin(), population.end(),
-              [](const Solution& a, const Solution& b) {
-                  return (a.fitness < b.fitness);
-              });
-    best_members.push_back(population[0]);
-    best_members.push_back(population[1]);
-    return best_members;
-}
-/*
-std::vector<std::vector<double>> GeneticAlgorithm::get_parents(std::vector<std::vector<double>> population)
-{
-    std::vector<std::vector<double>> parents(2, std::vector<double>(dim_size, 0));
-    for(int i=0; i<2; i++) {
-        int rand_index = rand() % population.size();
-        for (int j = 0; j < dim_size; j++) {
-            parents[i][j] = population[rand_index][j];
-        }
-    }
-    return parents;
-}
- */
-
- void GeneticAlgorithm::evaluate_population(std::vector<Solution> &population)
-{
-    for ( int i=0; i<population.size(); i++ ) {
-        population[i].fitness = test_function->get_value( population[i].vector );
+    for ( size_t i=0; i<population.size(); i++ ) {
+        population[i].fitness = test_function->get_value( population[i] );
     }
 
-    std::sort(population.begin(), population.end(),
-              [](const Solution& a, const Solution& b) {
-                  return (a.fitness < b.fitness);
-              });
+    qsort( population.data(), population.size(), sizeof(T), compare_members<T> );
+
 }
 
-void GeneticAlgorithm::add_members( std::vector<Solution> &population, std::vector<Solution> members )
+template <typename T>
+void GeneticAlgorithm<T>::add_members( std::vector<T> &population, std::vector<T>& members )
 {
-    /*
-    for ( int i=0; i<population.size(); i++ ) {
-        if ( population[i].fitness == members[0].fitness || population[i].fitness == members[1].fitness ) {
-            printf("duplic\n");
-        }
-    }
-     */
     for( int i=0; i<members.size(); i++ ) {
-        population.push_back(members[i]);
+        population.push_back(move(members[i]));
     }
 }
 
-std::vector<Solution> GeneticAlgorithm::create_population()
+
+template <typename T>
+void GeneticAlgorithm<T>::get_solution ( std::vector<T> &population, T& result )
 {
-   std::vector<Solution> population;
-   Solution solution(dim_size);
-    for ( int i=0; i<population_size; i++ ) {
-       for ( int j=0; j<dim_size; j++ ) {
-           solution.vector[j] =  -5 + 10*(static_cast <double> (rand()) / ( static_cast <double> (RAND_MAX)));
-       }
-       population.push_back(solution);
-   }
-    return population;
-}
 
-Solution GeneticAlgorithm::get_best_result( std::vector<Solution> population )
-{
-    std::sort(population.begin(), population.end(),
-              [](const Solution& a, const Solution& b) {
-                  return (a.fitness < b.fitness);
-              });
-    return  population[0];
-}
+    for ( size_t i=0; i<generation_number; i++ ) {
+        std::vector<T> best_members(2);
+        std::vector<T> parents(2);
+        std::vector<T> children(2);
+        std::vector<T> new_population;
 
-Solution GeneticAlgorithm::get_solution()
-{
-    std::vector<Solution> population = create_population();
-    evaluate_population(population);
-    Solution best_solution = population[0];
+        evaluate_population(population );
 
-    std::vector<Solution> best_population = create_population();
-    std::vector<Solution> parents(2, Solution(dim_size));
-    std::vector<Solution> children(2, Solution(dim_size));
-    extern int generations;
+        best_members[0] = population[0];
+        best_members[1] = population[1];
 
-    for ( int i=0; i<generation_number; i++ ) {
-        evaluate_population(population);
-        std::vector<Solution> best_members = get_best_members(population, test_function);
-        //best_members[0].print_value();
-        //best_members[1].print_value();
-        if(best_members[0].fitness < best_solution.fitness) {
-            best_solution = best_members[0];
-        }
-        best_solution.print_value();
-        std::vector<Solution> new_population;
         add_members( new_population, best_members );
-        add_members( best_population, best_members );
-        // TODO: probati reciklirati isti vektor jer je ovo suboptimalno (svaki put se radi novi vektor
-        while( new_population.size() < population_size ) {
-            parents = selection->get_members( population );
-            children = crossover->get_children( parents );
-            mutation->mutate_solution(children[0].vector );
-            mutation->mutate_solution(children[1].vector );
-            evaluate_population(children);
-            /*
-            if(children[0].fitness == children[1].fitness) {
-                printf("iteration %d\n", i);
-            }
-             */
+
+        evaluate_population( new_population );
+
+        while( new_population.size() < population.size() ) {
+
+            selection->get_members( population, parents );
+
+            crossover->get_children( parents, children );
+
+            mutation->mutate_solution( children[0] );
+            mutation->mutate_solution( children[1] );
+
             add_members(new_population, children );
+        }
 
+        population.clear();
+        for ( size_t j=0; j<new_population.size(); j++ ) {
+            population.push_back(move(new_population[j]));
         }
-        printf("Generation: %d/%d\n", i+1, generation_number);
-        population = new_population;
-/*
-        if( test_function->get_value( evaluate_population( population, test_function ) ) == static_cast<double> (0) ) {
-            generations++;
-            break;
-        }
-*/
+        printf("generation[%lu]\tbest members: %f %f \n", i, population[0].fitness, population[1].fitness );
     }
-    evaluate_population(population);
-
-    return get_best_result( population );
-
+    evaluate_population(population );
+    result = move( population[0] );
 }
+
+

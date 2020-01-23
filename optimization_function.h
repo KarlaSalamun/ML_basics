@@ -5,12 +5,11 @@
 #ifndef STEEPEST_DESCENT_OPTIMIZATION_FUNCTION_H
 #define STEEPEST_DESCENT_OPTIMIZATION_FUNCTION_H
 #include <vector>
-#include "function.h"
+#include "NumericFunction.h"
 
-template <typename T>
 class OptimizationFcn {
 public:
-    virtual std::vector<double> get_solution( std::vector<double> solution, Function<T> *test_function ) = 0;
+    virtual std::vector<double> get_solution( std::vector<double> solution, NumericFunction *test_function ) = 0;
 };
 
 #endif //STEEPEST_DESCENT_OPTIMIZATION_FUNCTION_H

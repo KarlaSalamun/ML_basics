@@ -5,4 +5,3 @@
 #include <cmath>
 #include <algorithm>
 #include "function.h"
-

@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <cstdio>
 #include "numeric_optimization.h"
 #include "quadratic_function.h"
 
@@ -22,13 +23,12 @@ void negative_vector(std::vector<double> &x)
     }
 }
 
-std::vector<double> NumericOptimization::get_solution(std::vector<double> solution, Function *test_function){
+std::vector<double> NumericOptimization::get_solution(std::vector<double> solution, NumericFunction *test_function) {
 
     std::vector<double> direction;
 
     solution.assign(3, 0);
     direction.assign(3, 0);
-
 
     solution[0] = 6;
     solution[1] = -10;
@@ -41,8 +41,9 @@ std::vector<double> NumericOptimization::get_solution(std::vector<double> soluti
     lambda_upper = 2; /* TODO: implementiraj uvrstavanje za gornju granicu lambda */
 
     int i=0;
+    int iterations=0;
     while(true) {
-        if (  euclid_norm( test_function->get_gradient_approximation(solution, delta))  < 0.01 )
+        if (  euclid_norm( test_function->get_gradient_approximation(solution, delta))  < 0.00001 )
             break;
         direction = test_function->get_gradient_approximation( solution, delta );
         negative_vector(direction);
@@ -74,7 +75,9 @@ std::vector<double> NumericOptimization::get_solution(std::vector<double> soluti
         for (i=0; i<solution.size(); i++) {
             solution[i] = solution[i] + lambda * direction[i];
         }
+        iterations++;
     }
+    printf("iterations: %d\n", iterations);
     return solution;
 }
 

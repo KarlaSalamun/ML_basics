@@ -6,14 +6,13 @@
 #define SIMULATED_ANNEALING_TF_OPTIMIZATION_H
 
 
-#include "../function.h"
-#include "../NumericFunction.h"
+#include "../../function.h"
 
-class TFOptimization : public NumericFunction {
+template <typename T>
+class TFOptimization : public Function<T> {
     public:
         TFOptimization( std::vector<std::vector<double>> x, std::vector<double> y ) : x(x), y(y) {}
-        double get_value( std::vector<double> &args );
-        std::vector<double> get_gradient_approximation(std::vector<double> args, double delta) {}
+        double get_value( T &args );
     private:
         std::vector<std::vector<double>> x;
         std::vector<double> y;

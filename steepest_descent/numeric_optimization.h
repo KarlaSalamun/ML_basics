@@ -12,7 +12,7 @@
 
 class NumericOptimization : public OptimizationFcn {
     public:
-        std::vector<double> get_solution( std::vector<double> solution, Function *test_function );
+        std::vector<double> get_solution( std::vector<double> solution, NumericFunction *test_function );
 };
 
 #endif //STEEPEST_DESCENT_NUMERIC_OPTIMIZATION_H

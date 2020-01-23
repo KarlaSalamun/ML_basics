@@ -11,6 +11,7 @@ template <typename T>
 class MutationOperator {
 public:
     virtual void mutate_solution ( T &solution ) = 0;
+    virtual ~MutationOperator() {}
 };
 
 

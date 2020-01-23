@@ -16,5 +16,9 @@ int main()
     solution = opt_function.get_solution(solution, test_function);
 
     printf("%f %f %f\n", solution[0], solution[1], solution[2]);
+
+    printf( "value: %f\n", test_function->get_value( solution ) );
+
+    delete test_function;
     return 0;
 }
